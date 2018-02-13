@@ -4,6 +4,9 @@ dist/
 npm-debug.log
 yarn-error.log
 
+# Python virtualenv
+venv
+
 # Editor directories and files
 .idea
 *.suo
