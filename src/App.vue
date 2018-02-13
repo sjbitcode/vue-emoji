@@ -9,6 +9,8 @@
 
     <img v-for="name in image_names" v-bind:src="imgUrl(name)">
 
+    <img v-bind:src="require(`${image}`)">
+
 
   </div>
 
@@ -20,6 +22,8 @@ export default {
   data () {
     return {
       greeting: 'Hello, there!',
+
+      image: './assets/img/u1F60D.png',
 
       image_names: [
         'u1F60D',
