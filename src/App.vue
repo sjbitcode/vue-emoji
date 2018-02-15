@@ -38,6 +38,10 @@
 
 <script>
 
+import Emojis from './emojis'
+
+console.log(Emojis);
+
 export default {
   data () {
     return {
