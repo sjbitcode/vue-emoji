@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "v-clipboard": "^1.0.4",
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "vue-directive-tooltip": "^1.4.2"
   },
   "browserslist": [
     "> 1%",

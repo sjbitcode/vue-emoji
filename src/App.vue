@@ -1,11 +1,8 @@
 <template>
   <div>
-
-    <p style="font-size:5rem;width:100%;">{{ emoji }}</p>
-
-
-
-
+    <app-header v-bind:title="title"></app-header>
+    <app-emoji v-bind:emojis="emojis"></app-emoji>
+    <app-footer></app-footer>
   </div>
 
 </template>
@@ -14,25 +11,32 @@
 
 import Emojis from './sorted_emojis'
 
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+import Emoji from './components/Emoji.vue'
+
 console.log(Emojis);
 
 export default {
+  components: {
+    'app-header': Header,
+    'app-footer': Footer,
+    'app-emoji': Emoji
+  },
+
   data () {
     return {
-      emoji: '\ud83d\ude00'
+      title: 'Emoji Index',
+      emojis: Emojis
     }
   },
 
   methods: {
-
-    copy: function() {
-      this.$clipboard('');
-    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 h1 {
   padding: 10px;
   border: 2px solid black;
