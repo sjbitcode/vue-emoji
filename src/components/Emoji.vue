@@ -1,8 +1,6 @@
 <template>
     <div id="emojis">
-        
         <div id="category" v-for="emoji_category, emoji_category_text in emojis">
-            
             <h1>{{ emoji_category_text }}</h1>
             
             <div id="emoji" v-for="val, key in emoji_category">
@@ -26,17 +24,13 @@
 
         data() {
             return {
-                
+
             }
         },
 
         methods: {
             copy: function(emoji) {
               this.$clipboard(emoji);
-            },
-
-            emoji_alias: function(alias) {
-                return alias;
             }
         }
     }
