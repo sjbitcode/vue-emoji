@@ -1,12 +1,9 @@
 <template>
     <div id="emojis">
-        <div id="category" v-for="emoji_category, emoji_category_text in emojis">
-            <h1>{{ emoji_category_text }}</h1>
-            
-            <div id="emoji" v-for="val, key in emoji_category">
-                <span @click="copy(key)" v-tooltip.top="{content: val, delay: 0}">{{ key }}</span>
-            </div>
-            
+
+        <input type="text" v-model="search" placeholder="search">
+        <div v-for="emoji, alias in filtered_emojis">
+            <span>{{ emoji }} - {{ alias }}</span>
         </div>
         
     </div>
@@ -16,6 +13,7 @@
 <script>
     export default {
         props: {
+
             emojis: {
                 type: Object,
                 required: true
@@ -24,13 +22,32 @@
 
         data() {
             return {
-
+                search: ''
             }
         },
 
         methods: {
             copy: function(emoji) {
               this.$clipboard(emoji);
+            }
+        },
+
+        computed: {
+            filtered_emojis: function() {
+                
+                // Build array of keys that match the search term
+                let search_keys = Object.keys(this.emojis).filter(
+                    (alias) => alias.match(this.search)
+                );
+
+                // Build new object from search_keys array
+                let copy = {};
+
+                search_keys.map(key => {
+                    copy[key] = this.emojis[key];
+                });
+
+                return copy;
             }
         }
     }

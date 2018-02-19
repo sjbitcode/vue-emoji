@@ -9,13 +9,11 @@
 
 <script>
 
-import Emojis from './sorted_emojis'
+import Emojis from './sample'
 
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import Emoji from './components/Emoji.vue'
-
-console.log(Emojis);
 
 export default {
   components: {
