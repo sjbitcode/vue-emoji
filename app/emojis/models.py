@@ -38,20 +38,30 @@ class Emoji(BaseModel):
 	codepoint = models.CharField(
 		max_length=150,
 		verbose_name='UTF-8 Codepoint',
-		help_text='Emoji Unicode UTF-8 Representation'
+		help_text='This emoji\'s Unicode codepoints'
 	)
 
 	shortcode = models.CharField(
 		max_length=200,
 		verbose_name='Shortcode',
-		help_text='Emoji Shortcode'
+		help_text='This emoji\'s shortcode'
+	)
+
+	main_category = models.ForeignKey(
+		'MainCategory',
+		related_name='emojis',
+		verbose_name='Main Category',
+		help_text='This emoji\'s main category',
+		on_delete=models.SET_NULL,
+		blank=True,
+		null=True
 	)
 
 	sub_category = models.ForeignKey(
 		'SubCategory',
 		related_name='emojis',
-		verbose_name='Category',
-		help_text='Emoji Category',
+		verbose_name='Sub Category',
+		help_text='This emoji\'s sub category',
 		on_delete=models.SET_NULL,
 		blank=True,
 		null=True
@@ -61,7 +71,7 @@ class Emoji(BaseModel):
 		'Keyword',
 		related_name='emojis',
 		verbose_name='Keywords',
-		help_text='Emoji Keywords',
+		help_text='This emoji\'s keywords',
 		blank=True
 	)
 
@@ -69,7 +79,7 @@ class Emoji(BaseModel):
 		'UnicodeVersion',
 		related_name='emojis',
 		verbose_name='Unicode Version',
-		help_text='Unicode Version',
+		help_text='This emoji\'s unicode version',
 		on_delete=models.CASCADE,
 		blank=True,
 		null=True
@@ -86,7 +96,7 @@ class MainCategory(BaseModel):
 	name = models.CharField(
 		max_length=100,
 		verbose_name='Main Category',
-		help_text='Main Category Field for an Emoji'
+		help_text='Main category field for an emoji'
 	)
 
 	def __str__(self):
@@ -100,14 +110,14 @@ class SubCategory(BaseModel):
 	name = models.CharField(
 		max_length=100,
 		verbose_name='Sub Category',
-		help_text='Sub Category Field for an Emoji'
+		help_text='Sub category field for an emoji'
 	)
 
 	parent_category= models.ForeignKey(
 		'MainCategory',
 		related_name='sub_categories',
-		verbose_name='Sub Category',
-		help_text='Emoji Sub Category',
+		verbose_name='Main Parent Category',
+		help_text='The main category of this sub category',
 		on_delete=models.CASCADE
 	)
 
@@ -121,13 +131,13 @@ class UnicodeVersion(BaseModel):
 	'''
 	year = models.PositiveSmallIntegerField(
 		verbose_name='Unicode Version Year',
-		help_text='Unicode Version Release Year'
+		help_text='Unicode version release year'
 	)
 
 	number = models.CharField(
 		max_length=10,
 		verbose_name='Unicode Version',
-		help_text='Unicode Version Number'
+		help_text='Unicode version number'
 	)
 
 	def __str__(self):
@@ -141,7 +151,7 @@ class Keyword(BaseModel):
 	name = models.CharField(
 		max_length=200,
 		verbose_name='Emoji Keyword',
-		help_text='Keyword Field for an Emoji'
+		help_text='Keyword for an emoji'
 	)
 
 	def __str__(self):
