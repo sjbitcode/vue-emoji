@@ -36,10 +36,7 @@ for row in rows:
                 {
                     'codepoint': 'some-codepoint',
                     'shortcode': 'some-shortcode',
-                    'keywords': [
-                        'foo'
-                        'bar'
-                    ]
+                    'keywords': ['foo', 'bar']
                 }
             ] 
         }
