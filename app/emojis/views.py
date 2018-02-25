@@ -79,7 +79,10 @@ class ListEmojis(ListAPIView):
 
 		# Combine all filters, order, and distinct
 		return (
-			queryset.filter(
+			queryset
+			.select_related('main_category', 'sub_category')
+			.prefetch_related('keywords')
+			.filter(
 				main_query_filter &
 				main_category_filter & 
 				sub_category_filter &
