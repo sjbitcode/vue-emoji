@@ -4,14 +4,16 @@
             <input type="text" v-model="search" placeholder="search for emoji">
 
             <select v-model="main_category_query">
-                <option value="" disabled hidden>Category</option>
+                <!-- <option value="" disabled hidden>Category</option> -->
+                <option value="">All</option>
                 <option v-for="category_obj in categories" v-bind:value="category_obj.name">
                     {{ category_obj.name }}
                 </option>
             </select>
 
             <select v-model="sub_category_query">
-                <option value="" disabled hidden>Sub Category</option>
+                <!-- <option value="" disabled hidden>Sub Category</option> -->
+                <option value="">All</option>
                 <option v-for="subcategory in selected_subcategories">
                     {{ subcategory }}
                 </option>
@@ -19,8 +21,14 @@
         </fieldset>
             
 
-        <div class="all-emojis" v-for="emoji in emojis">
-            <span>{{ emoji.shortcode }}</span>
+        <div v-if="any_emojis">
+            <h1>These are your emojis</h1>
+            <div class="all-emojis" v-for="emoji in emojis">
+                <span>{{ emoji.shortcode }} - {{ emoji.codepoint }}</span>
+            </div>
+        </div>
+        <div v-else>
+            <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
         </div>
 
 
@@ -46,6 +54,7 @@
                 search: '',
                 main_category_query: '',
                 sub_category_query: '',
+                main_category_select_active: false,
                 fresh_search: false,
                 bottom: false,
                 // baseUrl: 'http://localhost:8000/',
@@ -115,26 +124,16 @@
                 this.fresh_search = true;
                 this.loadEmoji();
 
-            }, 2000)
+            }, 500)
 
         },
 
         computed: {
-            filtered_emojis: function() {
-                
-                // Build array of keys that match the search term
-                let search_keys = Object.keys(this.emojis).filter(
-                    (alias) => alias.match(this.search)
-                );
-
-                // Build new object from search_keys array
-                let copy = {};
-
-                search_keys.map(key => {
-                    copy[key] = this.emojis[key];
-                });
-
-                return copy;
+            any_emojis: function() {
+                if(this.emojis.length == 0) {
+                    return false;
+                }
+                return true;
             },
 
             selected_subcategories: function() {
@@ -144,7 +143,8 @@
                     )
                     // returning list
                     // console.log(selected_category);
-                    this.sub_category_query = selected_category.subcategories[0];
+                    // this.sub_category_query = selected_category.subcategories[0];
+                    this.sub_category_query = '';
                     return selected_category.subcategories
                 }
             }
