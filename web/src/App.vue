@@ -1,7 +1,8 @@
 <template>
   <div>
     <app-header v-bind:title="title"></app-header>
-    <app-emoji v-bind:emojis="emojis"></app-emoji>
+    <!-- <app-emoji v-bind:emojis="emojis"></app-emoji> -->
+    <app-emoji></app-emoji>
     <app-footer></app-footer>
   </div>
 
@@ -9,7 +10,7 @@
 
 <script>
 
-import Emojis from './sample'
+//import Emojis from './sample'
 
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
@@ -25,7 +26,7 @@ export default {
   data () {
     return {
       title: 'Emoji Index',
-      emojis: Emojis
+      // emojis: Emojis
     }
   },
 
