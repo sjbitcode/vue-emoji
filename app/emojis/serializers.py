@@ -15,15 +15,17 @@ class EmojiSerializer(serializers.ModelSerializer):
 		if flat in ['True', 'true', 'TRUE']:
 			self.fields.pop('main_category')
 			self.fields.pop('sub_category')
-			self.fields.pop('keywords') 
-
+			self.fields.pop('keywords')
+ 
+	surrogate_pairs = serializers.StringRelatedField()
+	shortened_codepoint = serializers.StringRelatedField()
 	main_category = serializers.StringRelatedField()
 	sub_category = serializers.StringRelatedField()
 	keywords = serializers.StringRelatedField(many=True)
 
 	class Meta:
 		model = Emoji
-		fields = ['shortcode', 'codepoint', 'main_category', 'sub_category', 'keywords']
+		fields = ['shortcode', 'codepoint', 'surrogate_pairs', 'shortened_codepoint', 'main_category', 'sub_category', 'keywords']
 
 
 class SubCategorySerializer(serializers.ModelSerializer):

@@ -1,3 +1,6 @@
+import codecs
+import json
+import re
 import uuid
 
 from django.db import models
@@ -87,6 +90,25 @@ class Emoji(BaseModel):
 
 	def __str__(self):
 		return self.shortcode
+
+	@property
+	def shortened_codepoint(self):
+		'''
+		Replace "\\U0001F600" to "U+1F600"
+		'''
+
+		# Split codepoint based on regex to match '\\U0000' or '\\U000'
+		prefix = re.compile('[\\\\U]+[0]+')
+		codes = re.split(prefix, self.codepoint)
+
+		# Remove empty strings
+		codes = list(filter(None, codes))
+
+		return ' '.join(['U+' + code for code in codes])
+
+	@property
+	def surrogate_pairs(self):
+		return json.dumps(codecs.decode(self.codepoint, 'unicode_escape'))
 
 
 class MainCategory(BaseModel):
