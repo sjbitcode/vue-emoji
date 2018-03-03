@@ -19,14 +19,11 @@
                 </option>
             </select>
         </fieldset>
-            
 
         <div v-if="any_emojis">
             <h1>These are your emojis</h1>
-            <div class="all-emojis" v-for="emoji in emojis">
-                <span>{{ emoji.shortcode }} - {{ emoji.codepoint }} - {{ emoji.surrogate_pairs }}</span>
-            </div>
-        </div>
+            <show-emoji v-bind:emojis="emojis"></show-emoji>
+        </div>  
         <div v-else>
             <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
         </div>
@@ -37,9 +34,11 @@
 
 <script>
     import _ from 'lodash';
+    import showEmoji from './showEmoji.vue';
 
     export default {
-        props: {
+        components: {
+            'show-emoji': showEmoji
         },
 
         data() {
@@ -58,10 +57,6 @@
         },
 
         methods: {
-            copy: function(emoji) {
-              this.$clipboard(emoji);
-            },
-
             bottomVisible() {
                 // https://scotch.io/tutorials/simple-asynchronous-infinite-scroll-with-vue-watchers
 
@@ -181,8 +176,8 @@
             this.loadEmoji();
             this.loadCategories();
 
+            // Watch for changes on three models.
             let vm = this;
-
             this.$watch(vm => [
                 vm.search, 
                 vm.main_category_query, 

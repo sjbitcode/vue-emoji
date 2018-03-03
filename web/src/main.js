@@ -4,12 +4,20 @@ import App from './App.vue'
 import Clipboard from 'v-clipboard'
 import Tooltip from 'vue-directive-tooltip';
 import "../node_modules/vue-directive-tooltip/css/index.css";
-// import _ from 'lodash';
+
 
 Vue.use(VueResource)
 Vue.use(Clipboard);
 Vue.use(Tooltip);
-// Object.definePrototype(Vue.prototype, '_', { value: _ });
+
+
+// Filters
+Vue.filter('format-code', function(value) {
+	value = JSON.parse(value)
+	value += '\ufe0f'
+	return value
+});
+
 
 new Vue({
   el: '#app',
