@@ -78,19 +78,40 @@ class ListEmojis(ListAPIView):
 			)
 
 		# Combine all filters, order, and distinct
-		return (
-			queryset
-			.select_related('main_category', 'sub_category')
-			.prefetch_related('keywords')
-			.filter(
-				main_query_filter &
-				main_category_filter & 
-				sub_category_filter &
-				recent_filter
-			)
-			.order_by('shortcode')
-			.distinct()
-		)
+		results = queryset.select_related('main_category', 'sub_category') \
+						  .prefetch_related('keywords') \
+						  .filter(
+							main_query_filter &
+							main_category_filter & 
+							sub_category_filter &
+							recent_filter
+						  ) \
+						  .order_by('shortcode') \
+						  .distinct()
+		
+
+		# Get limit if exists
+		limit = self.request.query_params.get('limit')
+		if limit:
+			limit = int(limit)
+			return results[:limit]
+		else:
+			return results
+
+		# # Combine all filters, order, and distinct
+		# return (
+		# 	queryset
+		# 	.select_related('main_category', 'sub_category')
+		# 	.prefetch_related('keywords')
+		# 	.filter(
+		# 		main_query_filter &
+		# 		main_category_filter & 
+		# 		sub_category_filter &
+		# 		recent_filter
+		# 	)
+		# 	.order_by('shortcode')
+		# 	.distinct()
+		# )
 
 
 class ListCategories(ListAPIView):
