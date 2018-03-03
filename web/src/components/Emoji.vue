@@ -30,11 +30,6 @@
         <div v-else>
             <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
         </div>
-
-
-        <!-- <div v-for="emoji, alias in filtered_emojis">
-            <span>{{ emoji }} - {{ alias }}</span>
-        </div> -->
         
     </div>
 </template>
@@ -57,7 +52,6 @@
                 main_category_select_active: false,
                 fresh_search: false,
                 bottom: false,
-                // baseUrl: 'http://localhost:8000/',
                 resourceUrl: 'http://localhost:8000/emoji?flat=true',
                 categoryUrl: 'http://localhost:8000/categories'
             }
@@ -69,6 +63,8 @@
             },
 
             bottomVisible() {
+                // https://scotch.io/tutorials/simple-asynchronous-infinite-scroll-with-vue-watchers
+
                 const scrollY = window.scrollY;
                 const visible = document.documentElement.clientHeight;
                 const pageHeight = document.documentElement.scrollHeight;
@@ -77,9 +73,19 @@
             },
 
             loadCategories() {
+                /* 
+                    Get category data and store in this.categories.
+                    ex. 
+                    [
+                        {
+                            name: "Smileys & People",
+                            subcategories: ["face-positive", ..., "clothing"]
+                        },
+                        ...
+                    ]
+                */
                 this.$http.get(this.categoryUrl)
                 .then(function(data) {
-                    console.log('category data', data);
                     return data.json()
                 })
                 .then(function(data) {
@@ -91,14 +97,28 @@
             },
 
             loadEmoji() {
+                /* 
+                    Get emoji data, store in this.emojis, set resourceUrl to next page of paginated results.
+
+                    ex.
+                    [
+                        {
+                            "shortcode": "grinning_face",
+                            "codepoint": "\\U0001F600",
+                            "surrogate_pairs": "\"\\ud83d\\ude00\"",
+                            "shortened_codepoint": "U+1F600" 
+                        },
+                        ...
+                    ]
+                */
                 if (this.resourceUrl != null) {
 
                     this.$http.get(this.resourceUrl)
                     .then(function(data) {
-                        console.log(data);
                         return data.json()
                     })
                     .then(function(data) {
+                        // Display new emoji data, or append.
                         if (this.fresh_search) {
                             this.emojis = [];
                             this.emojis.push(...data.results);
@@ -115,15 +135,11 @@
             },
 
             debounceSearch: _.debounce(function() {
-                // let query_param = this.search;
-                // let sub_cat_param = this.main_category_query;
-                // let main_cat_param = this.sub_category_query;
-
+                // Debounce search feature to fetch new results based on search parameters.
                 let url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
                 this.resourceUrl = url;
                 this.fresh_search = true;
                 this.loadEmoji();
-
             }, 500)
 
         },
@@ -137,15 +153,13 @@
             },
 
             selected_subcategories: function() {
+                // Return the list of subcategories based on the selected main category.
                 if (this.main_category_query) {
-                    let selected_category = this.categories.find(obj => 
+                    let selected_main_category = this.categories.find(obj => 
                         (obj.name == this.main_category_query)
                     )
-                    // returning list
-                    // console.log(selected_category);
-                    // this.sub_category_query = selected_category.subcategories[0];
                     this.sub_category_query = '';
-                    return selected_category.subcategories
+                    return selected_main_category.subcategories
                 }
             }
         },
@@ -153,16 +167,10 @@
         watch: {
             bottom() {
                 if (this.bottom) {
-                    // console.log('BOTTOM: ', this.bottom);
-                    // console.log('BOTTOM VISIBLE: ', this.bottomVisible());
                     this.fresh_search = false;
                     this.loadEmoji();
                 }
-            },
-
-            // search() {
-            //     this.debounceSearch();
-            // }
+            }
         },
 
         created() {
