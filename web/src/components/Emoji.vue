@@ -24,7 +24,7 @@
         <div v-if="any_emojis">
             <h1>These are your emojis</h1>
             <div class="all-emojis" v-for="emoji in emojis">
-                <span>{{ emoji.shortcode }} - {{ emoji.codepoint }}</span>
+                <span>{{ emoji.shortcode }} - {{ emoji.codepoint }} - {{ emoji.surrogate_pairs }}</span>
             </div>
         </div>
         <div v-else>
@@ -58,7 +58,7 @@
                 fresh_search: false,
                 bottom: false,
                 // baseUrl: 'http://localhost:8000/',
-                resourceUrl: 'http://localhost:8000/emojis?flat=true',
+                resourceUrl: 'http://localhost:8000/emoji?flat=true',
                 categoryUrl: 'http://localhost:8000/categories'
             }
         },
@@ -119,7 +119,7 @@
                 // let sub_cat_param = this.main_category_query;
                 // let main_cat_param = this.sub_category_query;
 
-                let url = `http://localhost:8000/emojis?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+                let url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
                 this.resourceUrl = url;
                 this.fresh_search = true;
                 this.loadEmoji();

@@ -10,9 +10,9 @@ urlpatterns = [
 	),
 
 	path(
-		'emojis',
+		'emoji',
 		views.ListEmojis.as_view(),
-		name='emojis'
+		name='emoji'
 	),
 
 	path(
