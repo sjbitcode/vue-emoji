@@ -1,6 +1,17 @@
 <template>
 	<header>
-		<h1>{{ title }}</h1>
+		<section class="hero is-medium is-primary is-bold">
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h1 class="title">
+						Emoji Index &#x1F64A;
+					</h1>
+					<h2 class="subtitle">
+						search &amp; filter emoji
+					</h2>
+				</div>
+			</div>
+	</section>
 	</header>
 </template>
 
@@ -24,7 +35,7 @@
 
 
 <style>
-	header {
+	/*header {
 		background: lightblue;
 		padding: 10px;
 	}
@@ -32,5 +43,5 @@
 	h1 {
 		color: #222;
 		text-align: center;
-	}
+	}*/
 </style>

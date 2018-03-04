@@ -1,34 +1,60 @@
-<template>
-    <div id="emojis">
-        <fieldset>
-            <input type="text" v-model="search" placeholder="search for emoji">
+<template>    
+    <section>
+        <div class="container top-space bottom-space">
 
-            <select v-model="main_category_query">
-                <!-- <option value="" disabled hidden>Category</option> -->
-                <option value="">All</option>
-                <option v-for="category_obj in categories" v-bind:value="category_obj.name">
-                    {{ category_obj.name }}
-                </option>
-            </select>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large is-rounded" type="text" placeholder="Search for Emoji">
 
-            <select v-model="sub_category_query">
-                <!-- <option value="" disabled hidden>Sub Category</option> -->
-                <option value="">All</option>
-                <option v-for="subcategory in selected_subcategories">
-                    {{ subcategory }}
-                </option>
-            </select>
-        </fieldset>
+                </div>
+            </div>
 
-        <div v-if="any_emojis">
-            <h1>These are your emojis</h1>
-            <show-emoji v-bind:emojis="emojis"></show-emoji>
-        </div>  
-        <div v-else>
-            <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
+            <div class="field is-grouped is-grouped-centered">
+
+                <div class="field">
+                    <!-- <label class="label">Main Category</label> -->
+                    <div class="control is-expanded">
+                        <div class="select is-large is-rounded">
+                            <select v-model="main_category_query">
+                                <option value="" selected disabled>Main Category</option>
+                                <option value="">All</option>
+                                <option v-for="category_obj in categories" v-bind:value="category_obj.name">
+                                    {{ category_obj.name }}
+                                </option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <!-- <label class="label">Sub Category</label> -->
+                    <div class="control is-expanded">
+                        <div class="select is-large is-rounded">
+                            <select v-model="sub_category_query">
+                                <option value="" selected disabled>Sub Category</option>
+                                <option value="">All</option>
+                                <option v-for="subcategory in selected_subcategories">
+                                    {{ subcategory }}
+                                </option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container bottom-space">
+            <div v-if="any_emojis">
+                <show-emoji v-bind:emojis="emojis"></show-emoji>
+            </div>  
+            <div v-else>
+                <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
+            </div>
         </div>
         
-    </div>
+    </section>
 </template>
 
 
@@ -191,22 +217,11 @@
 
 
 <style scoped>
+.top-space {
+    margin-top: 50px;
+}
 
-    input {
-        width: 100%;
-        height: 50px;
-        margin: 20px 0;
-        display: inline-block;
-        text-align: center;
-    }
-
-    #emojis {
-        width: 100%;
-        max-width: 1200px;
-        margin: 40px auto;
-        padding: 0 20px;
-        box-sizing: border-box;
-        text-align: center;
-    }
-
+.bottom-space {
+    margin-bottom: 50px;
+}
 </style>
