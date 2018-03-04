@@ -2,14 +2,14 @@
     <section>
         <div class="container top-space bottom-space">
 
-            <div class="field">
+            <div class="field is-mobile">
                 <div class="control">
                     <input class="input is-medium is-rounded" v-model="search" type="text" placeholder="Search for Emoji">
 
                 </div>
             </div>
 
-            <div class="field is-grouped is-grouped-centered">
+            <div class="field is-grouped is-grouped-centered is-mobile">
 
                 <div class="field">
                     <div class="control is-expanded">
