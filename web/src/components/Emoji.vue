@@ -4,7 +4,7 @@
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-medium is-rounded" type="text" placeholder="Search for Emoji">
+                    <input class="input is-medium is-rounded" v-model="search" type="text" placeholder="Search for Emoji">
 
                 </div>
             </div>
