@@ -2,8 +2,8 @@
 	<div>
 		<div v-for="emoji in emojis">
             <span>
-            	{{ emoji.shortcode }} - 
-            	{{ emoji.codepoint }} - 
+            	<!-- {{ emoji.shortcode }} - 
+            	{{ emoji.codepoint }} -  -->
             	<div v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
             		{{ emoji.surrogate_pairs | format-code }}
             	</div>
