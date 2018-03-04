@@ -1,7 +1,7 @@
 <template>
-    <div class="columnsx is-mobile">
+    <div>
         <div v-for="emoji in emojis">
-            <div class="emoji columnx is-4x" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
+            <div v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
                 {{ emoji.surrogate_pairs | format-code }}
             </div>
         </div>
@@ -29,6 +29,6 @@
 
 <style scoped>
 .emoji {
-    font-size: 5em;
+    /*font-size: 5em;*/
 }
 </style>

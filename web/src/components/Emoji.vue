@@ -4,7 +4,7 @@
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large is-rounded" type="text" placeholder="Search for Emoji">
+                    <input class="input is-medium is-rounded" type="text" placeholder="Search for Emoji">
 
                 </div>
             </div>
@@ -12,9 +12,8 @@
             <div class="field is-grouped is-grouped-centered">
 
                 <div class="field">
-                    <!-- <label class="label">Main Category</label> -->
                     <div class="control is-expanded">
-                        <div class="select is-large is-rounded">
+                        <div class="select is-medium is-rounded">
                             <select v-model="main_category_query">
                                 <option value="" selected disabled>Main Category</option>
                                 <option value="">All</option>
@@ -28,9 +27,8 @@
                 </div>
 
                 <div class="field">
-                    <!-- <label class="label">Sub Category</label> -->
                     <div class="control is-expanded">
-                        <div class="select is-large is-rounded">
+                        <div class="select is-medium is-rounded">
                             <select v-model="sub_category_query">
                                 <option value="" selected disabled>Sub Category</option>
                                 <option value="">All</option>
