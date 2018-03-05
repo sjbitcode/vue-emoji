@@ -1,3 +1,9 @@
 body {
 	font-family: sans-serif !important;
 }
+
+.my-tooltip {
+	&.tooltip:after {
+		white-space: pre;
+	}
+}
