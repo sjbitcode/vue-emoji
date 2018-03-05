@@ -1,25 +1,23 @@
 <template>
-    <div class="container is-fluid">
-            
-    <div class="columns is-multiline is-mobile">
-        <div v-for="emoji in emojis">
+    <div class="container is-fluid"> 
+        <div class="columns is-multiline is-mobile">
+            <div v-for="emoji in emojis">
 
-            <b-tooltip v-bind:label="formatShortcode(emoji.shortcode)">
+                <b-tooltip v-bind:label="formatShortcode(emoji.shortcode)">
 
-                <div class="column" v-on:click="copy(emoji.shortcode)" v-bind:ref="'emoji_' + emoji.shortcode">
+                    <div class="column" v-on:click="copy(emoji.shortcode)" v-bind:ref="'emoji_' + emoji.shortcode">
 
-                    <div class="emoji">
-                        <a class="grow shake-freeze" v-bind:class="getRandomStyle()">
-                            {{ emoji.surrogate_pairs | format-code }}
-                        </a>
-                        <p class="copying">Copied!</p>
+                        <div class="emoji">
+                            <a class="grow shake-freeze" v-bind:class="getRandomStyle()">
+                                {{ emoji.surrogate_pairs | format-code }}
+                            </a>
+                            <p class="copying">Copied!</p>
+                        </div>
                     </div>
-                </div>
 
-            </b-tooltip>
+                </b-tooltip>
+            </div>
         </div>
-    </div>
-
     </div>
 </template>
 
