@@ -47,8 +47,14 @@
             <div v-if="any_emojis">
                 <show-emoji v-bind:emojis="emojis"></show-emoji>
             </div>  
-            <div v-else>
+            <!-- <div v-else>
                 <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
+            </div> -->
+        </div>
+
+        <div class="container">
+            <div v-show="loading">
+                <div class="spinner ld ld-spin">{{ emoji_spinner }}</div>
             </div>
         </div>
         
@@ -67,6 +73,8 @@
 
         data() {
             return {
+                emoji_spinner: '\ud83e\udd14',
+                loading: false,
                 emojis: [],
                 categories: {},
                 search: '',
@@ -145,6 +153,8 @@
                         else {
                             this.emojis.push(...data.results);
                         }
+                        // this.emojis.push(...data.results);
+                        this.loading = false;
                         this.resourceUrl = data.next;
                     })
                     .catch(function(error) {
@@ -155,11 +165,13 @@
 
             debounceSearch: _.debounce(function() {
                 // Debounce search feature to fetch new results based on search parameters.
+                // this.emojis = [];
+                this.loading = true;
                 let url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
                 this.resourceUrl = url;
                 this.fresh_search = true;
                 this.loadEmoji();
-            }, 200)
+            }, 1000)
 
         },
 
@@ -186,6 +198,8 @@
         watch: {
             bottom() {
                 if (this.bottom) {
+                    // if resourceUrl null, dont show loader
+                    this.loading = true;
                     this.fresh_search = false;
                     this.loadEmoji();
                 }
@@ -196,6 +210,7 @@
             window.addEventListener('scroll', () => {
                 this.bottom = this.bottomVisible();
             })
+            this.loading = true;
             this.fresh_search = true;
             this.loadEmoji();
             this.loadCategories();
@@ -221,5 +236,36 @@
 
 .bottom-space {
     margin-bottom: 50px;
+}
+
+/*@keyframes spinning-emoji {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}*/
+
+/*@keyframes spinning-emoji {
+  0% {
+    transform: rotate(0deg);
+
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}*/
+
+.spinner {
+    font-size: 7em;
+    text-align: center;
+    /*animation: spinning-emoji 1.2s linear infinite;*/
+    /*animation: bouncing-emoji 1s infinite;*/
 }
 </style>
