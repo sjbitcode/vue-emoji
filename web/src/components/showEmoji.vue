@@ -4,12 +4,16 @@
     <div class="columns is-multiline is-mobile">
         <div v-for="emoji in emojis">
 
-            <b-tooltip class="my-tooltip" :label="tooltipText(emoji)">
+            <b-tooltip :label="tooltipText(emoji)">
 
-                <div class="emoji column shake shake-freeze" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
-                    <a>
-                        {{ emoji.surrogate_pairs | format-code }}
-                    </a>
+                <div class="column" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
+
+                    <div class="emoji">
+                        <a class="grow shake shake-freeze">
+                            {{ emoji.surrogate_pairs | format-code }}
+                        </a>
+                        <p class="copying">Copied!</p>
+                    </div>
                 </div>
 
             </b-tooltip>
@@ -53,13 +57,43 @@
     margin: 0 30px;
 }
 
-.wiggle-enter-active {
-  animation: bouncebody .5s;
+@keyframes grow {
+  0% {
+      transform: scale(1.5);
+  }
+  50% {
+      transform: scale(.95);
+  }
+  100% {
+      transform: scale(1.5);
+  }
 }
-.wiggle-leave-active {
-  animation: bouncebody .5s reverse;
+
+@keyframes floatup {
+    20% {opacity: .999;}
+    100% {
+        -webkit-transform:translate3d(0,-80%,0);
+        transform:translate3d(0,-80%,0);
+    }
 }
-@keyframes bouncebody { 
-  to { transform: scaleX(1.03) scaleY(0.97); } 
+
+.copying {
+    color: #ba41e2;
+    font-size: 13px;
+    text-align: center;
+    opacity: 0;
+    transition:visibility 0s linear 0.5s,opacity 0.5s linear;
+}
+
+.emoji:active a {
+    animation: grow 1.2s 1 ease-out !important;
+}
+
+.emoji:active .copying {
+  opacity: 0;
+  position: relative;
+  -webkit-animation-name: floatup;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-fill-mode: forwards;
 }
 </style>
