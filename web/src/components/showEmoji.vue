@@ -4,7 +4,7 @@
     <div class="columns is-multiline is-mobile">
         <div v-for="emoji in emojis">
 
-            <b-tooltip :label="tooltipText(emoji)">
+            <b-tooltip :label="formatShortcode(emoji.shortcode)">
 
                 <div class="column" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
 
@@ -44,7 +44,6 @@
                     'shake-horizontal',
                     'shake-vertical',
                     'shake-rotate',
-                    'shake-opacity',
                     'shake-chunk'
                 ]
             }
@@ -59,11 +58,6 @@
 
             formatShortcode: function(str) {
                 return ':' + str + ':'
-            },
-
-            tooltipText: function(emoji) {
-                var text = this.formatShortcode(emoji.shortcode);
-                return text;
             },
 
             getRandomStyle: function() {
