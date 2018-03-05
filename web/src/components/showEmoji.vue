@@ -9,7 +9,7 @@
                 <div class="column" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
 
                     <div class="emoji">
-                        <a class="grow shake shake-freeze">
+                        <a class="grow shake-freeze" v-bind:class="getRandomStyle()">
                             {{ emoji.surrogate_pairs | format-code }}
                         </a>
                         <p class="copying">Copied!</p>
@@ -24,11 +24,29 @@
 </template>
 
 <script>
+    import _ from 'lodash';
+
     export default {
         props: {
             emojis: {
                 type: Array,
                 required: true
+            }
+        },
+
+        data() {
+            return {
+                css_shake_classes: [
+                    'shake',
+                    'shake-hard',
+                    'shake-slow',
+                    'shake-little',
+                    'shake-horizontal',
+                    'shake-vertical',
+                    'shake-rotate',
+                    'shake-opacity',
+                    'shake-chunk'
+                ]
             }
         },
 
@@ -46,6 +64,10 @@
             tooltipText: function(emoji) {
                 var text = this.formatShortcode(emoji.shortcode);
                 return text;
+            },
+
+            getRandomStyle: function() {
+               return _.shuffle(this.css_shake_classes)[0]; 
             }
         }
     }
