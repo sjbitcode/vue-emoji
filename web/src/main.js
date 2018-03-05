@@ -4,6 +4,7 @@ import App from './App.vue'
 import Clipboard from 'v-clipboard'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import 'csshake/dist/csshake.min.css';
 
 
 Vue.use(VueResource)

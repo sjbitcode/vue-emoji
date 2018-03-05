@@ -1,6 +1,6 @@
 <template>
 	<header>
-		<section class="hero is-medium is-primary is-bold">
+		<section class="hero is-primary is-bold">
 			<div class="hero-body">
 				<div class="container has-text-centered">
 					<h1 class="title">

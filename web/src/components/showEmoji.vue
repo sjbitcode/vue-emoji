@@ -1,21 +1,17 @@
 <template>
     <div class="container is-fluid">
-
-    <transition name="slither">  
-        <div>
-            &#x1F496;
-        </div>
-    </transition>
             
     <div class="columns is-multiline is-mobile">
         <div v-for="emoji in emojis">
 
             <b-tooltip class="my-tooltip" :label="tooltipText(emoji)">
-                <div class="emoji column" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
+
+                <div class="emoji column shake shake-freeze" v-on:click="copy(emoji.shortcode)" :ref="'emoji_' + emoji.shortcode">
                     <a>
                         {{ emoji.surrogate_pairs | format-code }}
                     </a>
                 </div>
+
             </b-tooltip>
         </div>
     </div>
@@ -32,19 +28,6 @@
             }
         },
 
-        data() {
-            return {
-                apples: [
-                    'apple1', 'apple2', 'apple3',
-                    'apple1', 'apple2', 'apple3',
-                    'apple1', 'apple2', 'apple3',
-                    'apple1', 'apple2', 'apple3',
-                    'apple1', 'apple2', 'apple3',
-                    'apple1', 'apple2', 'apple3',
-                ]
-            }
-        },
-
         methods: {
             copy: function(shortcode) {
               // Find ref and copy to clipboard
@@ -57,7 +40,7 @@
             },
 
             tooltipText: function(emoji) {
-                var text = this.formatShortcode(emoji.shortcode) + '\n' + emoji.shortened_codepoint;
+                var text = this.formatShortcode(emoji.shortcode);
                 return text;
             }
         }
@@ -70,15 +53,13 @@
     margin: 0 30px;
 }
 
-.slither-enter-active, .slither-leave-active {
-  transition: transform 3s;
+.wiggle-enter-active {
+  animation: bouncebody .5s;
 }
-
-.slither-enter, .slither-leave-to {
-  transform: translateX(-100%);
+.wiggle-leave-active {
+  animation: bouncebody .5s reverse;
 }
-
-.slither-enter-to, .slither-leave {
-  transform: translateX(0);
+@keyframes bouncebody { 
+  to { transform: scaleX(1.03) scaleY(0.97); } 
 }
 </style>
