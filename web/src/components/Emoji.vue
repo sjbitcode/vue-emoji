@@ -185,14 +185,6 @@
         },
 
         computed: {
-            // any_emojis: function() {
-            //     if(this.emojis.length == 0) {
-            //         return false;
-            //     }
-            //     // this.no_results_found = false;
-            //     return true;
-            // },
-
             selected_subcategories: function() {
                 // Return the list of subcategories based on the selected main category.
                 if (this.main_category_query) {

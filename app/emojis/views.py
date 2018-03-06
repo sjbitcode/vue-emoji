@@ -32,6 +32,31 @@ class Stats(APIView):
 		return Response(response_obj, status=status.HTTP_200_OK)
 
 
+class ListSelectedEmojis(ListAPIView):
+	queryset = Emoji.objects.all()
+	serializer_class = EmojiSerializer
+
+	def filter_queryset(self, queryset):
+		queryset = Emoji.objects.all()
+
+		selected_emoji_shortcodes = [
+			'unicorn_face',
+			'pile_of_poo',
+			'person_tipping_hand_medium_skin_tone',
+			'sparkles',
+			'party_popper',
+			'shortcake',
+			'woman_dancing_light_skin_tone',
+			'oncoming_fist_medium-light_skin_tone',
+			'spouting_whale',
+			'pancakes',
+			'detective_light_skin_tone',
+			'cooked_rice'
+		]
+
+		return queryset.filter(shortcode__in=selected_emoji_shortcodes).order_by('shortcode')
+
+
 class ListEmojis(ListAPIView):
 	queryset = Emoji.objects.all()
 	serializer_class = EmojiSerializer
@@ -97,21 +122,6 @@ class ListEmojis(ListAPIView):
 			return results[:limit]
 		else:
 			return results
-
-		# # Combine all filters, order, and distinct
-		# return (
-		# 	queryset
-		# 	.select_related('main_category', 'sub_category')
-		# 	.prefetch_related('keywords')
-		# 	.filter(
-		# 		main_query_filter &
-		# 		main_category_filter & 
-		# 		sub_category_filter &
-		# 		recent_filter
-		# 	)
-		# 	.order_by('shortcode')
-		# 	.distinct()
-		# )
 
 
 class ListCategories(ListAPIView):

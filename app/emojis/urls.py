@@ -16,6 +16,12 @@ urlpatterns = [
 	),
 
 	path(
+		'homepage',
+		views.ListSelectedEmojis.as_view(),
+		name='homepage_select'
+	),
+
+	path(
 		'categories',
 		views.ListCategories.as_view(),
 		name='categories'
