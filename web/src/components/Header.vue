@@ -9,12 +9,23 @@
                     search &amp; filter emoji
                 </h2>
                 <div>
-                    <b-tabs type="is-toggle-rounded" position="is-centered" class="block">
-                        <b-tab-item label="home"></b-tab-item>
-                        <b-tab-item label="about"></b-tab-item>
-                        <b-tab-item label="api"></b-tab-item>
-                        <b-tab-item label="contact"></b-tab-item>
-                    </b-tabs>
+                    <ul class="buttons has-addons is-centered" id="nav-ul">
+                        <li class="button is-rounded">
+                            <router-link to="/" exact @click.native="updateStyle($event)">home</router-link>
+                        </li>
+
+                        <li class="button is-rounded">
+                            <router-link to="/about" exact @click.native="updateStyle($event)">about</router-link>
+                        </li>
+
+                        <li class="button is-rounded">
+                            <router-link to="/api" exact @click.native="updateStyle($event)">api</router-link>
+                        </li>
+
+                        <li class="button is-rounded">
+                            <router-link to="/contact" exact @click.native="updateStyle($event)">contact</router-link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -41,6 +52,33 @@
             return {
                 show_about: false
             }
+        },
+
+        methods: {
+            updateStyle: function(event) {
+                // Get all li elements from ul.
+                let children = document.getElementById('nav-ul').children;
+
+                // Remove 'clicked' class each li.
+                for(let i = 0; i < children.length; i++) {
+                    let child = children[i];
+                    child.classList.remove('clicked');
+                }
+
+                // Add 'clicked' class to the selected li.
+                event.target.parentElement.classList.add('clicked');   
+            },
+
+            styleInitialActive: function() {
+                // Add 'clicked' class to initial selected li.
+                let active_link = document.getElementsByClassName('router-link-active')[0];
+
+                active_link.parentElement.classList.add('clicked');
+            }
+        },
+
+        mounted() {
+            this.styleInitialActive();
         }
     }
 </script>
@@ -49,5 +87,14 @@
 <style scoped>
 a {
     color: #ab9bdc;
+}
+
+li .router-link-active {
+    font-weight: bold;
+    color: white;
+}
+
+.clicked {
+    background: #3f1b8c;
 }
 </style>
