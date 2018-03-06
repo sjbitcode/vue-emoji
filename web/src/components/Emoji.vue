@@ -176,7 +176,17 @@
             debounceSearch: _.debounce(function() {
                 // Debounce search feature to fetch new results based on search parameters.
                 this.loading = true;
-                let url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+
+                let url = '';
+
+                // if no search params, get selected emojis
+                if (this.search == '' && this.main_category_query == '' && this.sub_category_query == '') {
+                    url = 'http://localhost:8000/homepage?flat=true';
+                }
+                else {
+                    url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+                }
+                
                 this.resourceUrl = url;
                 this.fresh_search = true;
                 this.loadEmoji();
