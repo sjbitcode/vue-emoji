@@ -1,5 +1,6 @@
 <template>    
     <section>
+
         <div class="container top-space bottom-space">
 
             <div class="field is-mobile">
@@ -88,7 +89,7 @@
                 fresh_search: false,
                 no_results_found: false,
                 bottom: false,
-                resourceUrl: 'http://localhost:8000/emoji?flat=true',
+                resourceUrl: 'http://localhost:8000/homepage?flat=true',
                 categoryUrl: 'http://localhost:8000/categories'
             }
         },
@@ -163,7 +164,6 @@
                         else {
                             this.no_results_found = false;
                         }
-
                         this.loading = false;
                         this.resourceUrl = data.next;
                     })

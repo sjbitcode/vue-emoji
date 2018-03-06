@@ -1,5 +1,6 @@
 <template>
     <div class="container is-fluid"> 
+
         <div class="columns is-multiline is-mobile">
             <div v-for="emoji in emojis">
 
@@ -74,6 +75,10 @@
     margin: 0 30px;
 }
 
+.emoji:active a {
+    animation: grow 1.2s 1 ease-out !important;
+}
+
 @keyframes grow {
   0% {
       transform: scale(1.5);
@@ -84,17 +89,5 @@
   100% {
       transform: scale(1.5);
   }
-}
-
-@keyframes floatup {
-    20% {opacity: .999;}
-    100% {
-        -webkit-transform:translate3d(0,-80%,0);
-        transform:translate3d(0,-80%,0);
-    }
-}
-
-.emoji:active a {
-    animation: grow 1.2s 1 ease-out !important;
 }
 </style>
