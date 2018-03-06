@@ -180,7 +180,7 @@
                 this.resourceUrl = url;
                 this.fresh_search = true;
                 this.loadEmoji();
-            }, 1000)
+            }, 200)
 
         },
 
