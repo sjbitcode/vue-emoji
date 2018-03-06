@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header v-bind:title="title"></app-header>
-    <app-emoji></app-emoji>
+    <router-view></router-view>
     <app-footer></app-footer>
   </div>
 
