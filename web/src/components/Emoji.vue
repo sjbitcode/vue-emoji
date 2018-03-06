@@ -1,9 +1,12 @@
 <template>    
-    <section>
+    <section class="section">
 
-        <div class="container top-space bottom-space">
+        <div class="container bottom-space">
 
-            <div class="field is-mobile">
+            <div class="columns has-text-centered">
+                <div class="column is-2 left-sidebar"></div>
+                <div class="column main-column">
+                    <div class="field is-mobile">
                 <div class="control">
                     <input class="input is-medium is-rounded" v-model="search" type="text" placeholder="Search for Emoji">
 
@@ -42,9 +45,14 @@
                     </div>
                 </div>
             </div>
+                </div>
+                <div class="column is-2 right-sidebar"></div>
+            </div>
+
+            
         </div>
 
-        <div class="container bottom-space">
+        <div class="container">
             <div v-if="no_results_found">
                 <div class="content has-text-centered">
                     <h4>No results for &ldquo;{{ search }}&rdquo; in selected categories</h4>
