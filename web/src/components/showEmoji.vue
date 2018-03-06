@@ -8,10 +8,10 @@
                     <div class="column" v-on:click="copy(emoji.shortcode)" v-bind:ref="'emoji_' + emoji.shortcode">
 
                         <div class="emoji">
-                            <a class="grow shake-freeze" v-bind:class="getRandomStyle()">
+                            <a class="grow shake-freeze" v-bind:class="getRandomStyle()" v-on:click="copiedToast">
                                 {{ emoji.surrogate_pairs | format-code }}
                             </a>
-                            <p class="copying">Copied!</p>
+                            <!-- <p class="copying">Copied!</p> -->
                         </div>
                     </div>
 
@@ -60,7 +60,11 @@
 
             getRandomStyle: function() {
                return _.shuffle(this.css_shake_classes)[0]; 
-            }
+            },
+
+            copiedToast() {
+                this.$toast.open('Copied!')
+            },
         }
     }
 </script>
@@ -91,23 +95,23 @@
     }
 }
 
-.copying {
+/*.copying {
     color: #ba41e2;
     font-size: 13px;
     text-align: center;
     opacity: 0;
     transition:visibility 0s linear 0.5s,opacity 0.5s linear;
-}
+}*/
 
 .emoji:active a {
     animation: grow 1.2s 1 ease-out !important;
 }
 
-.emoji:active .copying {
+/*.emoji:active .copying {
   opacity: 0;
   position: relative;
   -webkit-animation-name: floatup;
   -webkit-animation-duration: 0.5s;
   -webkit-animation-fill-mode: forwards;
-}
+}*/
 </style>

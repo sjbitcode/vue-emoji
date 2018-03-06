@@ -44,12 +44,15 @@
         </div>
 
         <div class="container bottom-space">
-            <div v-if="any_emojis">
+            <div v-if="no_results_found">
+                <div class="content has-text-centered">
+                    <h4>No results for &ldquo;{{ search }}&rdquo; in selected categories</h4>
+                    <div class="spinner ld ld-clock" style="animation-duration:2.5s">{{ emoji_no_results }}</div>
+                </div>
+            </div>
+            <div v-else>
                 <show-emoji v-bind:emojis="emojis"></show-emoji>
-            </div>  
-            <!-- <div v-else>
-                <h1>Didn't find {{ search }} in {{ main_category_query }}, {{ sub_category_query }}</h1>
-            </div> -->
+            </div>
         </div>
 
         <div class="container">
@@ -74,6 +77,7 @@
         data() {
             return {
                 emoji_spinner: '\ud83e\udd14',
+                emoji_no_results:'\ud83e\uddd0',
                 loading: false,
                 emojis: [],
                 categories: {},
@@ -82,6 +86,7 @@
                 sub_category_query: '',
                 main_category_select_active: false,
                 fresh_search: false,
+                no_results_found: false,
                 bottom: false,
                 resourceUrl: 'http://localhost:8000/emoji?flat=true',
                 categoryUrl: 'http://localhost:8000/categories'
@@ -148,12 +153,17 @@
                         // Display new emoji data, or append.
                         if (this.fresh_search) {
                             this.emojis = [];
-                            this.emojis.push(...data.results);
+                        }
+                        this.emojis.push(...data.results);
+
+                        // if no results
+                        if (this.emojis.length === 0) {
+                            this.no_results_found = true
                         }
                         else {
-                            this.emojis.push(...data.results);
+                            this.no_results_found = false;
                         }
-                        // this.emojis.push(...data.results);
+
                         this.loading = false;
                         this.resourceUrl = data.next;
                     })
@@ -165,7 +175,6 @@
 
             debounceSearch: _.debounce(function() {
                 // Debounce search feature to fetch new results based on search parameters.
-                // this.emojis = [];
                 this.loading = true;
                 let url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
                 this.resourceUrl = url;
@@ -176,12 +185,13 @@
         },
 
         computed: {
-            any_emojis: function() {
-                if(this.emojis.length == 0) {
-                    return false;
-                }
-                return true;
-            },
+            // any_emojis: function() {
+            //     if(this.emojis.length == 0) {
+            //         return false;
+            //     }
+            //     // this.no_results_found = false;
+            //     return true;
+            // },
 
             selected_subcategories: function() {
                 // Return the list of subcategories based on the selected main category.
@@ -198,10 +208,17 @@
         watch: {
             bottom() {
                 if (this.bottom) {
-                    // if resourceUrl null, dont show loader
-                    this.loading = true;
                     this.fresh_search = false;
                     this.loadEmoji();
+
+                    // If no more pages to fetch, dont show loader
+                    if (this.resourceUrl === null){
+                        this.loading = false;
+                    }
+                    else {
+                        this.loading = true;
+                    }
+                    
                 }
             }
         },
@@ -238,34 +255,8 @@
     margin-bottom: 50px;
 }
 
-/*@keyframes spinning-emoji {
-  0% {
-    transform: rotate(0);
-    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-  }
-  50% {
-    transform: rotate(900deg);
-    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  100% {
-    transform: rotate(1800deg);
-  }
-}*/
-
-/*@keyframes spinning-emoji {
-  0% {
-    transform: rotate(0deg);
-
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}*/
-
 .spinner {
     font-size: 7em;
     text-align: center;
-    /*animation: spinning-emoji 1.2s linear infinite;*/
-    /*animation: bouncing-emoji 1s infinite;*/
 }
 </style>
