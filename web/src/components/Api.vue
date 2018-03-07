@@ -76,9 +76,8 @@
                         <div class="tile is-child box">
                             <h3 class="title">Method</h3>
                             <b-table :data="api_method_data" :columns="api_method_columns"></b-table>
-                        </div>
 
-                        <div class="tile is-child box">
+                            <br><br>
                             <h3 class="title">Parameters</h3>
                             <b-table :data="emoji_params_data" :columns="emoji_params_columns"></b-table>
                         </div>
@@ -87,7 +86,14 @@
 
                     <div class="tile is-vertical is-parent is-6">
                         <div class="tile is-child">
-                            <pre v-highlightjs="emoji_data"><code class="javascript"></code></pre>
+                            <h1>Request:</h1>
+                            <highlight-code lang="HTTP">
+                            {{ emoji_endpoint_url }}</highlight-code>
+                        </div>
+
+                        <div class="tile is-child">
+                            <h1>Response:</h1>
+                            <highlight-code lang="javascript">{{ emoji_data }}</highlight-code>
                         </div>
                     </div>
                     
@@ -184,7 +190,9 @@
                     return data.json();
                 })
                 .then(function(data) {
-                    this.emoji_data = JSON.stringify(data);
+                    this.emoji_data = data;
+                    console.log(this.emoji_data)
+                    console.log(typeof(this.emoji_data))
                 })
         }
     }
@@ -260,4 +268,12 @@
 .short-hero .subtitle {
     color: #b1a0ef !important;
 }
+
+/*.hljs {
+    background: rgb(63, 41, 130) !important;
+}
+
+.hljs-string {
+    color: #c1b2f3 !important;
+}*/
 </style>

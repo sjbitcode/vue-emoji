@@ -2,3 +2,19 @@ body {
 	font-family: sans-serif !important;
 }
 
+pre {
+	background-color: #e1ddf3 !important;
+}
+
+.hljs {
+    background: rgb(63, 41, 130) !important;
+}
+
+.hljs-string {
+    color: #c1b2f3 !important;
+}
+
+.hljs-number {
+	color: #ff55ff;
+}
+
