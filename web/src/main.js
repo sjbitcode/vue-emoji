@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
+import VueHighlightJS from 'vue-highlightjs'
 import App from './App.vue'
 import Clipboard from 'v-clipboard'
 import Buefy from 'buefy'
@@ -11,6 +12,7 @@ import 'csshake/dist/csshake.min.css';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
+Vue.use(VueHighlightJS);
 Vue.use(Clipboard);
 Vue.use(Buefy, {
 	defaultIconPack: 'fab'

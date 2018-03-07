@@ -143,9 +143,7 @@
                 .catch(function(error) {
                     console.log('Error! Could not reach the API. ' + error);
                 })
-                
-                
-            } 
+            }
         },
 
         created() {

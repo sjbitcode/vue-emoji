@@ -34,18 +34,12 @@
 
 
 <script>
-    import About from './About.vue';
-
     export default {
         props: {
             title: {
                 type: String,
                 required: true
             }
-        },
-
-        components: {
-            'app-about': About
         },
 
         data() {
