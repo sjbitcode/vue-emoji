@@ -217,11 +217,22 @@ a {
 }
 
 .hero.is-success {
-    background-color: #f1f1f1;
+    /*background-color: #f1f1f1;*/
+    background-color: #efe9ff;
     color: #504a4a;
 }
 
 .hero.is-success .title {
     color: #504a4a;
 }
+
+.notification.is-danger {
+    /*background-color: #9056bb;*/
+    background-color: #272229;
+}
+
+/*.notification.is-warning {
+    background-color: #642194;
+    color: white;
+}*/
 </style>
