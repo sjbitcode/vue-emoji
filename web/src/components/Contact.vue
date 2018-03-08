@@ -15,7 +15,7 @@
                         </h2>
 
                         <div>
-                            <b-collapse class="panel" :open.sync="isOpen">
+                            <b-collapse class="panel">
                                 <div slot="trigger" class="panel-heading">
                                     <p>
                                         {{ robot_face }} tech stack {{ pancakes }}
