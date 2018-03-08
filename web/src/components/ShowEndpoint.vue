@@ -33,13 +33,13 @@
 
                     <div class="tile is-vertical is-parent is-6">
                         <div class="tile is-child">
-                            <h1>Request:</h1>
+                            <h1 class="req_res">Request:</h1>
                             <highlight-code>
                             {{ endpoint_info.endpoint_url }}</highlight-code>
                         </div>
 
                         <div class="tile is-child">
-                            <h1>Response:</h1>
+                            <h1 class="req_res">Response:</h1>
                             <highlight-code lang="javascript">{{ endpoint_info.data }}</highlight-code>
                         </div>
                     </div>
@@ -281,6 +281,12 @@
 
 .subtitle {
     margin-top: 0 !important;
+}
+
+.req_res {
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .second-hero {

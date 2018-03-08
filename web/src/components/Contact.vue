@@ -6,17 +6,71 @@
 					<div class="column is-3"></div>
 
 					<div class="column has-text-centered">
-						<h1 class="title">Hello, there!</h1>
+						<h1 class="title">Hello!</h1>
 						<h2 class="subtitle">
 							Emoji Index is a searchable emoji database created by Sangeeta Jadoonanan.
 						</h2>
+
 						<h2 class="subtitle">
 							This project is currently being maintained, so if you have any
 							questions or suggestions, don't hesitate to contact me through either of my links below.
 						</h2>
-						<div class="ld ld-blink style" style="animation-duration:2.2s;">
-							<div class="emoji ld ld-breath" style="animation-direction:reverse;">{{ hand }}</div>
+
+						<div>
+							<b-collapse class="panel" :open.sync="isOpen">
+								<div slot="trigger" class="panel-heading">
+									<p>tech stack</p>
+								</div>
+
+								<p class="panel-tabs">
+									<a v-on:click="activate('server-side')" v-bind:class="{ 'is-active': active_tab == 'server-side'}">server-side</a>
+
+									<a v-on:click="activate('front-end')" v-bind:class="{ 'is-active': active_tab == 'front-end'}">front-end</a>
+
+									<a v-on:click="activate('styling')" v-bind:class="{ 'is-active': active_tab == 'styling'}">styling</a>
+
+									<a v-on:click="activate('hosting')" v-bind:class="{ 'is-active': active_tab == 'hosting'}">hosting</a>
+								</p>
+
+								<div class="panel-block" v-show="active_tab === 'server-side'">
+									<div class="tags">
+										<span class="tag is-rounded">Python</span>
+										<span class="tag is-rounded">Django</span>
+										<span class="tag is-rounded">Django REST Framework</span>
+										<span class="tag is-rounded">Postgres</span>
+									</div>
+								</div>
+
+								<div class="panel-block" v-show="active_tab === 'front-end'">
+									<div class="tags">
+										<span class="tag is-rounded">ES6</span>
+										<span class="tag is-rounded">VueJS</span>
+										<span class="tag is-rounded">Webpack</span>
+									</div>
+								</div>
+
+								<div class="panel-block" v-show="active_tab === 'styling'">
+									<div class="tags">
+										<span class="tag is-rounded">Bulma</span>
+										<span class="tag is-rounded">Buefy</span>
+										<span class="tag is-rounded">Highlight.js</span>
+										<span class="tag is-rounded">CSS Shake</span>
+										<span class="tag is-rounded">Loading.css</span>
+										<span class="tag is-rounded">Hero Patterns</span>
+									</div>
+								</div>
+
+								<div class="panel-block" v-show="active_tab === 'hosting'">
+									<div class="tags">
+										<span class="tag is-rounded">Amazon S3</span>
+										<span class="tag is-rounded">Route 53</span>
+										<span class="tag is-rounded">Vultr</span>
+									</div>
+								</div>
+
+        					</b-collapse>
 						</div>
+						<div class="emoji ld ld-breath" style="animation-duration:2.0s;">{{ heart }}</div>
 					</div>
 
 					<div class="column is-3"></div>
@@ -28,7 +82,7 @@
 		<div class="hero-foot">
 			<div class="container has-text-centered">
 				<a v-on:click="riddle">
-					<p>a goodbye riddle</p>
+					<p id="riddle">a goodbye riddle</p>
 				</a>
 			</div>
 		</div>
@@ -40,11 +94,17 @@
 	export default {
 		data() {
 			return {
-				hand: '\ud83d\udc47\ud83c\udffc'
+				hand: '\ud83d\udc47\ud83c\udffc',
+				heart: '\ud83d\udc9c',
+				active_tab: 'server-side'
 			}
 		},
 
 		methods: {
+			activate: function(tab) {
+                this.active_tab = tab;
+            },
+
 			riddle() {
                 this.$dialog.alert({
                     title: 'You found me! \ud83c\udf89',
@@ -70,6 +130,9 @@
 
 .container p {
 	letter-spacing: 1px;
+}
+
+#riddle {
 	color: #f0e3fb;
 }
 
@@ -84,5 +147,30 @@
     margin-bottom: 15px;
     color: #7957d5 !important;
     letter-spacing: 1px;
+}
+
+.panel-block {
+	background: white;
+	display: flex;
+	justify-content: center;
+}
+
+.panel-heading {
+	background-color: white;
+	color: #3f1e8a;
+}
+
+.panel-tabs a.is-active {
+    border-bottom-color: #3f1c8b !important;
+    color: #3f1c8b !important;
+}
+
+.panel-tabs {
+	background: #f7f7f7;
+}
+
+.tag:not(body) {
+	background-color: #5f43ad;
+	color: white;
 }
 </style>
