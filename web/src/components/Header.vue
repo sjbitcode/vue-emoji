@@ -27,12 +27,12 @@
 
 
 <script>
-    import { mapState } from 'vuex';
-
     export default {
-        computed: mapState({
-            title: state => state.title
-        })
+        computed: {
+            title() {
+                return this.$store.state.title;
+            }
+        }
     }
 </script>
 

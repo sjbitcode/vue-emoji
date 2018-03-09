@@ -1,6 +1,7 @@
 <template>
     <div>
         <section>
+            <p>{{ message }}<p>
             <div class="container top-space">
                 <div class="tile is-ancestor is-mobile">
                     <div class="tile is-parent is-6 has-text-centered">
@@ -146,8 +147,16 @@
             }
         },
 
+        computed: {
+            message() {
+                return this.$store.state.message;
+            }
+        },
+
         created() {
+            console.log('ABOUT COMPONENT CREATED');
             this.getStats();
+            this.$store.dispatch('fetchMessage');
         }
     }
 </script>

@@ -1,5 +1,6 @@
 <template>    
     <section class="section">
+        <p>{{ message }}</p>
 
         <div class="container bottom-space">
 
@@ -212,6 +213,10 @@
                     this.sub_category_query = '';
                     return selected_main_category.subcategories
                 }
+            },
+
+            message() {
+                return this.$store.state.message;
             }
         },
 
@@ -241,6 +246,8 @@
             this.fresh_search = true;
             this.loadEmoji();
             this.loadCategories();
+            console.log('EMOJI COMPONENT CREATED');
+            this.$store.dispatch('fetchMessage');
 
             // Watch for changes on three models.
             let vm = this;
