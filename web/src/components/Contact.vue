@@ -109,8 +109,6 @@
     export default {
         data() {
             return {
-                hand: '\ud83d\udc47\ud83c\udffc',
-                heart: '\ud83d\udc9c',
                 robot_face: '\ud83e\udd16',
                 pancakes: '\ud83e\udd5e',
                 active_tab: 'server-side'
