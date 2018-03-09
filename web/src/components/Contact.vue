@@ -6,102 +6,99 @@
                     <div class="column is-3"></div>
 
                     <div class="column has-text-centered">
-                        <h2 class="subtitle">
-                            Emoji Index is a searchable emoji database created by Sangeeta Jadoonanan.
-                        </h2>
-                        <h2 class="subtitle">
-                            This project is currently being maintained, so if you have any
-                            questions or suggestions, don't hesitate to contact me through either of my links below.
-                        </h2>
 
-                        <div>
-                            <b-collapse class="panel">
-                                <div slot="trigger" class="panel-heading">
-                                    <p>
-                                        {{ robot_face }} tech stack {{ pancakes }}
+                        <div class="box">
+                            <h2 class="subtitle">
+                                Emoji Index is a searchable emoji database created by Sangeeta Jadoonanan.
+                            </h2>
+
+                            <h2 class="subtitle">
+                                This project is currently being maintained, so if you have any
+                                questions or suggestions, don't hesitate to contact me through either of my links below.
+                            </h2>
+
+                            <div>
+                                <b-collapse class="panel">
+                                    <div slot="trigger" class="panel-heading">
+                                        <p>
+                                            {{ robot_face }} tech stack {{ pancakes }}
+                                        </p>
+                                    </div>
+
+                                    <p class="panel-tabs">
+                                        <a v-on:click="activate('server-side')" v-bind:class="{ 'is-active': active_tab == 'server-side'}">server-side</a>
+
+                                        <a v-on:click="activate('front-end')" v-bind:class="{ 'is-active': active_tab == 'front-end'}">front-end</a>
+
+                                        <a v-on:click="activate('styling')" v-bind:class="{ 'is-active': active_tab == 'styling'}">styling</a>
+
+                                        <a v-on:click="activate('hosting')" v-bind:class="{ 'is-active': active_tab == 'hosting'}">hosting</a>
                                     </p>
-                                </div>
 
-                                <p class="panel-tabs">
-                                    <a v-on:click="activate('server-side')" v-bind:class="{ 'is-active': active_tab == 'server-side'}">server-side</a>
+                                    <div class="panel-block" v-show="active_tab === 'server-side'">
+                                        <div class="tags">
+                                            <a href="https://www.python.org/" target="_blank" class="tag is-rounded">Python</a>
 
-                                    <a v-on:click="activate('front-end')" v-bind:class="{ 'is-active': active_tab == 'front-end'}">front-end</a>
+                                            <a href="https://www.djangoproject.com/" target="_blank" class="tag is-rounded">Django</a>
 
-                                    <a v-on:click="activate('styling')" v-bind:class="{ 'is-active': active_tab == 'styling'}">styling</a>
+                                            <a href="http://www.django-rest-framework.org/" target="_blank" class="tag is-rounded">Django REST Framework</a>
 
-                                    <a v-on:click="activate('hosting')" v-bind:class="{ 'is-active': active_tab == 'hosting'}">hosting</a>
-                                </p>
+                                            <a href="https://www.postgresql.org/" target="_blank" class="tag is-rounded">Postgres</a>
 
-                                <div class="panel-block" v-show="active_tab === 'server-side'">
-                                    <div class="tags">
-                                        <a href="https://www.python.org/" target="_blank" class="tag is-rounded">Python</a>
-
-                                        <a href="https://www.djangoproject.com/" target="_blank" class="tag is-rounded">Django</a>
-
-                                        <a href="http://www.django-rest-framework.org/" target="_blank" class="tag is-rounded">Django REST Framework</a>
-
-                                        <a href="https://www.postgresql.org/" target="_blank" class="tag is-rounded">Postgres</a>
-
-                                        <a href="https://www.docker.com/" target="_blank" class="tag is-rounded">Docker</a>
+                                            <a href="https://www.docker.com/" target="_blank" class="tag is-rounded">Docker</a>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="panel-block" v-show="active_tab === 'front-end'">
-                                    <div class="tags">
-                                        <a href="https://es6.io/" target="_blank" class="tag is-rounded">ES6</a>
+                                    <div class="panel-block" v-show="active_tab === 'front-end'">
+                                        <div class="tags">
+                                            <a href="https://es6.io/" target="_blank" class="tag is-rounded">ES6</a>
 
-                                        <a href="https://vuejs.org/" target="_blank" class="tag is-rounded">VueJS</a>
+                                            <a href="https://vuejs.org/" target="_blank" class="tag is-rounded">VueJS</a>
 
-                                        <a href="https://webpack.js.org/" target="_blank" class="tag is-rounded">Webpack</a>
+                                            <a href="https://webpack.js.org/" target="_blank" class="tag is-rounded">Webpack</a>
 
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="panel-block" v-show="active_tab === 'styling'">
-                                    <div class="tags">
+                                    <div class="panel-block" v-show="active_tab === 'styling'">
+                                        <div class="tags">
 
-                                        <a href="https://bulma.io/" target="_blank" class="tag is-rounded">Bulma</a>
+                                            <a href="https://bulma.io/" target="_blank" class="tag is-rounded">Bulma</a>
 
-                                        <a href="https://buefy.github.io/#/" target="_blank" class="tag is-rounded">Buefy</a>
-
-
-                                        <a href="https://github.com/gluons/vue-highlight.js" target="_blank" class="tag is-rounded">vue-highlight.js</a>
+                                            <a href="https://buefy.github.io/#/" target="_blank" class="tag is-rounded">Buefy</a>
 
 
-                                        <a href="https://elrumordelaluz.github.io/csshake/" target="_blank" class="tag is-rounded">CSShake</a>
+                                            <a href="https://github.com/gluons/vue-highlight.js" target="_blank" class="tag is-rounded">vue-highlight.js</a>
 
 
-                                        <a href="https://loading.io/animation/" target="_blank" class="tag is-rounded">Loading.css</a>
+                                            <a href="https://elrumordelaluz.github.io/csshake/" target="_blank" class="tag is-rounded">CSShake</a>
 
 
-                                        <a href="http://www.heropatterns.com/" target="_blank" class="tag is-rounded">Hero Patterns</a>
+                                            <a href="https://loading.io/animation/" target="_blank" class="tag is-rounded">Loading.css</a>
+
+
+                                            <a href="http://www.heropatterns.com/" target="_blank" class="tag is-rounded">Hero Patterns</a>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="panel-block" v-show="active_tab === 'hosting'">
-                                    <div class="tags">
-                                        <a href="https://aws.amazon.com/s3/" target="_blank" class="tag is-rounded">Amazon S3</a>
+                                    <div class="panel-block" v-show="active_tab === 'hosting'">
+                                        <div class="tags">
+                                            <a href="https://aws.amazon.com/s3/" target="_blank" class="tag is-rounded">Amazon S3</a>
 
-                                        <a href="https://www.vultr.com/" target="_blank" class="tag is-rounded">Vultr</a>
+                                            <a href="https://www.vultr.com/" target="_blank" class="tag is-rounded">Vultr</a>
 
+                                        </div>
                                     </div>
-                                </div>
 
-                            </b-collapse>
+                                </b-collapse>
+                            </div>
                         </div>
+                        
                     </div>
 
                     <div class="column is-3"></div>
                     
                 </div>
-            </div>
-        </div>
-
-        <div class="hero-foot">
-            <div class="container has-text-centered">
-                <a v-on:click="riddle">
-                    <p id="riddle">a goodbye riddle</p>
-                </a>
             </div>
         </div>
     </section>
@@ -123,14 +120,6 @@
         methods: {
             activate: function(tab) {
                 this.active_tab = tab;
-            },
-
-            riddle() {
-                this.$dialog.alert({
-                    title: 'You found me! \ud83c\udf89',
-                    message: 'There is only 1 image on this app. Can you find it?',
-                    confirmText: 'Sí se puede!'
-                })
             }
         }
     }
@@ -150,10 +139,6 @@
 
 .container p {
     letter-spacing: 1px;
-}
-
-#riddle {
-    color: #f0e3fb;
 }
 
 .title {
