@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header v-bind:title="title"></app-header>
+    <app-header></app-header>
     <router-view></router-view>
     <app-footer></app-footer>
   </div>
@@ -18,15 +18,6 @@ export default {
     'app-header': Header,
     'app-footer': Footer,
     'app-emoji': Emoji
-  },
-
-  data () {
-    return {
-      title: 'Emoji Index'
-    }
-  },
-
-  methods: {
   }
 }
 </script>

@@ -9,6 +9,7 @@ import VueHighlightJS from 'vue-highlight.js';
 import 'buefy/lib/buefy.css'
 import 'csshake/dist/csshake.min.css';
 import 'highlight.js/styles/dracula.css';
+import { store } from './store/store';
 
 
 Vue.use(VueResource);
@@ -34,6 +35,7 @@ Vue.filter('format-code', function(value) {
 
 
 new Vue({
+  store: store,
   el: '#app',
   render: h => h(App),
   router: router

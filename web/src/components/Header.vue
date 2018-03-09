@@ -27,13 +27,12 @@
 
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
-        props: {
-            title: {
-                type: String,
-                required: true
-            }
-        }
+        computed: mapState({
+            title: state => state.title
+        })
     }
 </script>
 

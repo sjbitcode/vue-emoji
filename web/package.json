@@ -14,11 +14,13 @@
     "csshake": "^1.5.3",
     "highlight.js": "^9.12.0",
     "lodash": "^4.17.5",
+    "save": "^2.3.2",
     "v-clipboard": "^1.0.4",
     "vue": "^2.5.11",
     "vue-highlight.js": "^2.2.0",
     "vue-resource": "^1.4.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "browserslist": [
     "> 1%",
