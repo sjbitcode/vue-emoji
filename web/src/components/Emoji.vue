@@ -98,7 +98,8 @@
                 fresh_search: false,
                 no_results_found: false,
                 bottom: false,
-                resourceUrl: 'http://localhost:8000/homepage?flat=true',
+                resourceUrl: null,
+                // resourceUrl: 'http://localhost:8000/homepage?flat=true',
                 categoryUrl: 'http://localhost:8000/categories'
             }
         },
@@ -179,7 +180,13 @@
                     .catch(function(error) {
                         console.log('Error! Could not reach the API. ' + error);
                     })
-                } 
+                }
+                else {
+                    console.log('resourceUrl is null');
+                    console.log(this.$store.state.homepageEmoji);
+                    this.emojis = this.$store.state.homepageEmoji;
+                    this.loading = false;
+                }
             },
 
             debounceSearch: _.debounce(function() {
@@ -188,9 +195,9 @@
 
                 let url = '';
 
-                // if no search params, get selected emojis
+                // if no search params, set url to null in order to load homepage emoji from vuex store.
                 if (this.search == '' && this.main_category_query == '' && this.sub_category_query == '') {
-                    url = 'http://localhost:8000/homepage?flat=true';
+                    url = null;
                 }
                 else {
                     url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
@@ -239,6 +246,8 @@
         },
 
         created() {
+            this.$store.dispatch('fetchMessage');
+            this.$store.dispatch('fetchHomepageEmoji');
             window.addEventListener('scroll', () => {
                 this.bottom = this.bottomVisible();
             })
@@ -247,7 +256,6 @@
             this.loadEmoji();
             this.loadCategories();
             console.log('EMOJI COMPONENT CREATED');
-            this.$store.dispatch('fetchMessage');
 
             // Watch for changes on three models.
             let vm = this;

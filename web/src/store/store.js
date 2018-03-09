@@ -7,12 +7,17 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		title: 'Emoji Index',
-		message: ''
+		message: '',
+		homepageEmoji: []
 	},
 
 	mutations: {
 		updateMessage: (state, payload) => {
 			state.message = payload;
+		},
+
+		updateHomepageEmoji: (state, payload) => {
+			state.homepageEmoji = payload;
 		}
 	},
 
@@ -34,6 +39,26 @@ export const store = new Vuex.Store({
 			}
 			else {
 				console.log('Not fetching the message');
+			}
+		},
+
+		fetchHomepageEmoji: context => {
+			console.log('homepageEmoji is ' + context.state.homepageEmoji);
+			if(_.isEmpty(context.state.homepageEmoji)) {
+				console.log('Going to fetch homepageemoji');
+				Vue.http.get('http://localhost:8000/homepage?flat=true')
+				.then(data => {
+					return data.json()
+				})
+				.then(data => {
+					context.commit('updateHomepageEmoji', data.results);
+				})
+				.catch(error => {
+					console.log('Error fetching data, ' + error);
+				});
+			}
+			else {
+				console.log('Not fetching home page emojis');
 			}
 		}
 	}
