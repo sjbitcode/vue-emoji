@@ -53,6 +53,8 @@
 
 
 <script>
+    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import _ from 'lodash';
     export default {
         props: {
@@ -261,8 +263,32 @@
             }
         },
 
+        
+        // computed: mapState({
+        //     categories_data: state => state.categories,
+        //     stats_data: state => state.stats,
+        //     emoji_data: state => state.sampleRequest,
+
+        // }),
+        computed: {
+            ...mapState({
+                'categories',
+                'stats',
+                'sampleRequest'
+            }),
+
+            ...mapGetters([
+                'categoriesUrl',
+                'statsUrl',
+                'sampleRequestUrl'
+            ])
+        },
+
         created() {
             this.showEndpointInfo();
+            this.$store.dispatch('fetchSampleEmojiRequest');
+            this.$store.dispatch('fetchCategories');
+            this.$store.dispatch('fetchStats');
         },
 
         watch: {

@@ -1,7 +1,6 @@
 <template>
     <div>
         <section>
-            <p>{{ message }}<p>
             <div class="container top-space">
                 <div class="tile is-ancestor is-mobile">
                     <div class="tile is-parent is-6 has-text-centered">
@@ -63,7 +62,7 @@
                         <div>
                             <p class="heading">Total Emoji</p>
                             <p class="title">
-                                {{ this.total_emoji }}
+                                {{ stats['Total Emojis'] | locale-string }}
                             </p>
                         </div>
                     </div>
@@ -71,7 +70,7 @@
                         <div>
                             <p class="heading">Recent Emoji</p>
                             <p class="title">
-                                {{ this.recent_emoji }}
+                                {{ stats['Recently Added Emojis'] | locale-string }}
                             </p>
                         </div>
                     </div>
@@ -79,7 +78,7 @@
                         <div>
                             <p class="heading">Keywords</p>
                             <p class="title">
-                                {{ this.total_keywords }}
+                                {{ stats['Total Keywords'] | locale-string }}
                             </p>
                         </div>
                     </div>
@@ -87,7 +86,7 @@
                         <div>
                             <p class="heading">Categories</p>
                             <p class="title">
-                                {{ this.total_categories }}
+                                {{ stats['Total Sub Categories'] | locale-string }}
                             </p>
                         </div>
                     </div>
@@ -114,12 +113,6 @@
                 },
                 left_arrow: '\u2b05\ufe0e',
                 right_arrow: '\u27a1\ufe0e',
-                resourceUrl: 'http://localhost:8000/stats',
-                stats: {},
-                total_emoji: 0,
-                recent_emoji: 0,
-                total_keywords: 0,
-                total_categories: 0
                 }
         },
 
@@ -127,36 +120,23 @@
             copy() {
                 this.$clipboard(this.$refs.clickedemoji.innerText);
                 this.$toast.open('Copied!')
-            },
-
-            getStats() {
-                this.$http.get(this.resourceUrl)
-                .then(function(data) {
-                    return data.json();
-                })
-                .then(function(data){
-                    this.stats = data;
-                    this.total_emoji = this.stats['Total Emojis'].toLocaleString();
-                    this.recent_emoji = this.stats['Recently Added Emojis'].toLocaleString();
-                    this.total_keywords = this.stats['Total Keywords'].toLocaleString();
-                    this.total_categories = this.stats['Total Sub Categories'].toLocaleString(); 
-                })
-                .catch(function(error) {
-                    console.log('Error! Could not reach the API. ' + error);
-                })
             }
         },
 
         computed: {
             message() {
                 return this.$store.state.message;
+            },
+
+            stats() {
+                return this.$store.state.stats;
             }
         },
 
         created() {
             console.log('ABOUT COMPONENT CREATED');
-            this.getStats();
             this.$store.dispatch('fetchMessage');
+            this.$store.dispatch('fetchStats');
         }
     }
 </script>

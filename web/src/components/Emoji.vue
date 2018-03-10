@@ -1,6 +1,5 @@
 <template>    
     <section class="section">
-        <p>{{ message }}</p>
 
         <div class="container bottom-space">
 
@@ -61,7 +60,7 @@
                 </div>
             </div>
             <div v-else>
-                <show-emoji v-bind:emojis="emojis"></show-emoji>
+                <show-emoji v-bind:emojis="emojis" v-bind:homepage="showSelectEmoji"></show-emoji>
             </div>
         </div>
 
@@ -90,7 +89,6 @@
                 emoji_no_results:'\ud83e\uddd0',
                 loading: false,
                 emojis: [],
-                categories: {},
                 search: '',
                 main_category_query: '',
                 sub_category_query: '',
@@ -99,8 +97,7 @@
                 no_results_found: false,
                 bottom: false,
                 resourceUrl: null,
-                // resourceUrl: 'http://localhost:8000/homepage?flat=true',
-                categoryUrl: 'http://localhost:8000/categories'
+                showSelectEmoji: true
             }
         },
 
@@ -115,45 +112,8 @@
                 return bottomOfPage || pageHeight < visible;
             },
 
-            loadCategories() {
-                /* 
-                    Get category data and store in this.categories.
-                    ex. 
-                    [
-                        {
-                            name: "Smileys & People",
-                            subcategories: ["face-positive", ..., "clothing"]
-                        },
-                        ...
-                    ]
-                */
-                this.$http.get(this.categoryUrl)
-                .then(function(data) {
-                    return data.json()
-                })
-                .then(function(data) {
-                    this.categories = data.results;
-                })
-                .catch(function(error) {
-                    console.log('Error! Could not reach the API. ' + error);
-                })
-            },
-
             loadEmoji() {
-                /* 
-                    Get emoji data, store in this.emojis, set resourceUrl to next page of paginated results.
-
-                    ex.
-                    [
-                        {
-                            "shortcode": "grinning_face",
-                            "codepoint": "\\U0001F600",
-                            "surrogate_pairs": "\"\\ud83d\\ude00\"",
-                            "shortened_codepoint": "U+1F600" 
-                        },
-                        ...
-                    ]
-                */
+                // Get emoji data, store in this.emojis, set resourceUrl to next page of paginated results.
                 if (this.resourceUrl != null) {
 
                     this.$http.get(this.resourceUrl)
@@ -182,9 +142,6 @@
                     })
                 }
                 else {
-                    console.log('resourceUrl is null');
-                    console.log(this.$store.state.homepageEmoji);
-                    this.emojis = this.$store.state.homepageEmoji;
                     this.loading = false;
                 }
             },
@@ -198,9 +155,11 @@
                 // if no search params, set url to null in order to load homepage emoji from vuex store.
                 if (this.search == '' && this.main_category_query == '' && this.sub_category_query == '') {
                     url = null;
+                    this.showSelectEmoji = true;
                 }
                 else {
                     url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+                    this.showSelectEmoji = false;
                 }
                 
                 this.resourceUrl = url;
@@ -224,6 +183,10 @@
 
             message() {
                 return this.$store.state.message;
+            },
+
+            categories() {
+                return this.$store.state.categories;
             }
         },
 
@@ -246,16 +209,20 @@
         },
 
         created() {
+            console.log('EMOJI COMPONENT CREATED');
+
             this.$store.dispatch('fetchMessage');
             this.$store.dispatch('fetchHomepageEmoji');
+            this.$store.dispatch('fetchCategories');
+
             window.addEventListener('scroll', () => {
                 this.bottom = this.bottomVisible();
             })
             this.loading = true;
             this.fresh_search = true;
+
+
             this.loadEmoji();
-            this.loadCategories();
-            console.log('EMOJI COMPONENT CREATED');
 
             // Watch for changes on three models.
             let vm = this;

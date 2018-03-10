@@ -33,6 +33,10 @@ Vue.filter('format-code', function(value) {
 	return value
 });
 
+Vue.filter('locale-string', function(value) {
+	return value.toLocaleString();
+});
+
 
 new Vue({
   store: store,

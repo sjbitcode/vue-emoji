@@ -2,7 +2,7 @@
     <div class="container is-fluid"> 
 
         <div class="columns is-multiline is-mobile">
-            <div v-for="emoji in emojis">
+            <div v-for="emoji in emojiToDisplay">
 
                 <b-tooltip v-bind:label="formatShortcode(emoji.shortcode)">
 
@@ -29,6 +29,11 @@
             emojis: {
                 type: Array,
                 required: true
+            },
+
+            homepage: {
+                type: Boolean,
+                required: true
             }
         },
 
@@ -44,6 +49,18 @@
                     'shake-rotate',
                     'shake-chunk'
                 ]
+            }
+        },
+
+        computed: {
+
+            emojiToDisplay() {
+                if (this.homepage) {
+                    return this.$store.state.homepageEmoji;
+                }
+                else {
+                    return this.emojis;
+                }
             }
         },
 
