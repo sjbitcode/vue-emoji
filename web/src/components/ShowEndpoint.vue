@@ -271,11 +271,11 @@
 
         // }),
         computed: {
-            ...mapState({
+            ...mapState([
                 'categories',
                 'stats',
                 'sampleRequest'
-            }),
+            ]),
 
             ...mapGetters([
                 'categoriesUrl',

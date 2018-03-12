@@ -11,13 +11,11 @@
 
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import Emoji from './components/Emoji.vue'
 
 export default {
   components: {
     'app-header': Header,
-    'app-footer': Footer,
-    'app-emoji': Emoji
+    'app-footer': Footer
   }
 }
 </script>

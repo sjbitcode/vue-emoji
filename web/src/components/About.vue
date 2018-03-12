@@ -62,15 +62,15 @@
                         <div>
                             <p class="heading">Total Emoji</p>
                             <p class="title">
-                                {{ stats['Total Emojis'] | locale-string }}
+                                {{ stats['Total Emojis'].toLocaleString() }}
                             </p>
                         </div>
                     </div>
-                    <div class="level-item has-text-centered">
+                    <!-- <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Recent Emoji</p>
                             <p class="title">
-                                {{ stats['Recently Added Emojis'] | locale-string }}
+                                {{ recentlyAddedEmoji }}
                             </p>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <div>
                             <p class="heading">Keywords</p>
                             <p class="title">
-                                {{ stats['Total Keywords'] | locale-string }}
+                                {{ totalKeywords }}
                             </p>
                         </div>
                     </div>
@@ -86,10 +86,10 @@
                         <div>
                             <p class="heading">Categories</p>
                             <p class="title">
-                                {{ stats['Total Sub Categories'] | locale-string }}
+                                {{ totalSubCategories }}
                             </p>
                         </div>
-                    </div>
+                    </div> -->
                 </nav>
                 </div>
             </div>
@@ -100,6 +100,8 @@
 
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         data() {
             return {
@@ -120,23 +122,36 @@
             copy() {
                 this.$clipboard(this.$refs.clickedemoji.innerText);
                 this.$toast.open('Copied!')
+            },
+
+            fetchData() {
+                this.$store.dispatch('fetchStats');
             }
         },
 
         computed: {
-            message() {
-                return this.$store.state.message;
-            },
+            // message() {
+            //     return this.$store.state.message;
+            // },
 
             stats() {
                 return this.$store.state.stats;
             }
+
+            // ...mapGetters({
+            //     total_emoji: 'totalEmoji'
+            //     // 'recentlyAddedEmoji',
+            //     // 'totalKeywords',
+            //     // 'totalSubCategories'
+            // })
+
         },
 
         created() {
             console.log('ABOUT COMPONENT CREATED');
-            this.$store.dispatch('fetchMessage');
-            this.$store.dispatch('fetchStats');
+            // this.$store.dispatch('fetchMessage');
+            // this.$store.dispatch('fetchStats');
+            this.fetchData();
         }
     }
 </script>

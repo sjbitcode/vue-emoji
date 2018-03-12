@@ -154,6 +154,7 @@
 
                 // if no search params, set url to null in order to load homepage emoji from vuex store.
                 if (this.search == '' && this.main_category_query == '' && this.sub_category_query == '') {
+                    console.log('url gonna be null');
                     url = null;
                     this.showSelectEmoji = true;
                 }

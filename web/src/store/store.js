@@ -17,7 +17,15 @@ export const store = new Vuex.Store({
 		categories: {},
 		categoriesEndpoint: '/categories',
 
-		stats: {},
+		stats: {
+			date_requested: '',
+			'Total Emojis': 0,
+			'Total Keywords': 0,
+			'Recently Added Emojis': 0,
+			'Total Main Categories': 0,
+			'Total Sub Categories': 0
+		},
+		// stats: {},
 		statsEndpoint: '/stats',
 
 		sampleRequest: {},
@@ -35,6 +43,24 @@ export const store = new Vuex.Store({
 
 		sampleRequestUrl: state => {
 			return state.baseUrl + state.sampleRequestEndpoint;
+		},
+
+		totalEmoji: state => {
+			console.log(' total emoji is ', state.stats['Total Emojis']);
+			return state.stats['Total Emojis'];
+			
+		},
+
+		recentlyAddedEmoji: state => {
+			return state.stats['Recently Added Emojis'] += 1;
+		},
+
+		totalKeywords: state => {
+			return state.stats['Total Keywords'] += 1;
+		},
+
+		totalSubCategories: state => {
+			return state.stats['Total Sub Categories'] += 1;
 		}
 	},
 
@@ -56,7 +82,7 @@ export const store = new Vuex.Store({
 
 		updateStats: (state, payload) => {
 			state.stats = payload;
-			console.log('stats SET TO ---> ' + state.stats);
+			console.log('stats SET TO ---> ', state.stats);
 		},
 
 		updateSampleEmojiRequest: (state, payload) => {
@@ -91,7 +117,7 @@ export const store = new Vuex.Store({
 			if(_.isEmpty(context.state.homepageEmoji)) {
 				console.log('Going to fetch homepageemoji');
 
-				url = context.state.baseUrl + context.state.homepageEndpoint;
+				const url = context.state.baseUrl + context.state.homepageEndpoint;
 
 				Vue.http.get(url)
 				.then(data => {
@@ -114,7 +140,7 @@ export const store = new Vuex.Store({
 			if(_.isEmpty(context.state.categories)) {
 				console.log('Going to fetch categories');
 
-				url = context.state.baseUrl + context.state.categoriesEndpoint;
+				const url = context.state.baseUrl + context.state.categoriesEndpoint;
 
 				Vue.http.get(url)
 				.then(data => {
@@ -133,17 +159,21 @@ export const store = new Vuex.Store({
 		},
 
 		fetchStats: context => {
-			console.log('stats is ' + context.state.stats);
-			if(_.isEmpty(context.state.stats)) {
+			console.log('stats is ', context.state.stats);
+			// if(_.isEmpty(context.state.stats)) {
+			if(true) {
 				console.log('Going to fetch stats');
 
-				url = context.state.baseUrl + context.state.statsEndpoint;
+				const url = context.state.baseUrl + context.state.statsEndpoint;
 
 				Vue.http.get(url)
 				.then(data => {
-					return data.json()
+					//context.commit('updateStats', data.json())
+					return data.json();
 				})
 				.then(data => {
+					//debugger;
+					console.log('stats DATA is ', data);
 					context.commit('updateStats', data);
 				})
 				.catch(error => {
@@ -160,7 +190,7 @@ export const store = new Vuex.Store({
 			if(_.isEmpty(context.state.sampleRequest)) {
 				console.log('Going to fetch sample request');
 
-				url = context.state.baseUrl + context.state.sampleRequestEndpoint;
+				const url = context.state.baseUrl + context.state.sampleRequestEndpoint;
 
 				Vue.http.get(url)
 				.then(data => {
