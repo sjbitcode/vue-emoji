@@ -23,6 +23,7 @@
 
 <script>
     import _ from 'lodash';
+    import { mapState } from 'vuex';
 
     export default {
         props: {
@@ -54,9 +55,13 @@
 
         computed: {
 
+            ...mapState([
+                'homepageEmoji'
+            ]),
+
             emojiToDisplay() {
                 if (this.homepage) {
-                    return this.$store.state.homepageEmoji;
+                    return this.homepageEmoji;
                 }
                 else {
                     return this.emojis;

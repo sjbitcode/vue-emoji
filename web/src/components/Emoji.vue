@@ -76,6 +76,7 @@
 
 <script>
     import _ from 'lodash';
+    import { mapState } from 'vuex';
     import showEmoji from './showEmoji.vue';
 
     export default {
@@ -104,7 +105,6 @@
         methods: {
             bottomVisible() {
                 // https://scotch.io/tutorials/simple-asynchronous-infinite-scroll-with-vue-watchers
-
                 const scrollY = window.scrollY;
                 const visible = document.documentElement.clientHeight;
                 const pageHeight = document.documentElement.scrollHeight;
@@ -159,7 +159,9 @@
                     this.showSelectEmoji = true;
                 }
                 else {
-                    url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+                    // url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+
+                    url = `${this.baseUrl}${this.emojiEndpoint}?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
                     this.showSelectEmoji = false;
                 }
                 
@@ -182,13 +184,11 @@
                 }
             },
 
-            message() {
-                return this.$store.state.message;
-            },
-
-            categories() {
-                return this.$store.state.categories;
-            }
+            ...mapState([
+                'categories',
+                'baseUrl',
+                'emojiEndpoint'
+            ])
         },
 
         watch: {
@@ -212,7 +212,6 @@
         created() {
             console.log('EMOJI COMPONENT CREATED');
 
-            this.$store.dispatch('fetchMessage');
             this.$store.dispatch('fetchHomepageEmoji');
             this.$store.dispatch('fetchCategories');
 

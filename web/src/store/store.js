@@ -7,7 +7,10 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		title: 'Emoji Index',
-		message: '',
+		
+		api_status: '\ud83e\udd1e\ud83c\udffc',
+		thumbsUp: '\ud83d\udc4d\ud83c\udffc',
+		thumbsDown: '\ud83d\udc4e\ud83c\udffc',
 
 		baseUrl: 'http://localhost:8000',
 
@@ -17,22 +20,26 @@ export const store = new Vuex.Store({
 		categories: {},
 		categoriesEndpoint: '/categories',
 
+		statsEndpoint: '/stats',
 		stats: {
-			date_requested: '',
+			'date_requested': '',
 			'Total Emojis': 0,
 			'Total Keywords': 0,
 			'Recently Added Emojis': 0,
 			'Total Main Categories': 0,
 			'Total Sub Categories': 0
 		},
-		// stats: {},
-		statsEndpoint: '/stats',
 
+		emojiEndpoint: '/emoji',
 		sampleRequest: {},
-		sampleRequestEndpoint: '/emoji?q=smile&limit=2'
+		sampleRequestQueryParams: '?q=smile&limit=2'
 	},
 
 	getters: {
+		homepageUrl: state => {
+			return state.baseUrl + state.homepageEndpoint;
+		},
+
 		categoriesUrl: state => {
 			return state.baseUrl + state.categoriesEndpoint;
 		},
@@ -42,32 +49,20 @@ export const store = new Vuex.Store({
 		},
 
 		sampleRequestUrl: state => {
-			return state.baseUrl + state.sampleRequestEndpoint;
-		},
-
-		totalEmoji: state => {
-			console.log(' total emoji is ', state.stats['Total Emojis']);
-			return state.stats['Total Emojis'];
-			
-		},
-
-		recentlyAddedEmoji: state => {
-			return state.stats['Recently Added Emojis'] += 1;
-		},
-
-		totalKeywords: state => {
-			return state.stats['Total Keywords'] += 1;
-		},
-
-		totalSubCategories: state => {
-			return state.stats['Total Sub Categories'] += 1;
+			return state.baseUrl + state.emojiEndpoint + state.sampleRequestQueryParams;
 		}
 	},
 
 	mutations: {
 		updateMessage: (state, payload) => {
-			state.message = payload;
+			if (payload === 'good') {
+				state.api_status = state.thumbsUp;
+			}
+			else if (payload === 'bad') {
+				state.api_status = state.thumbsDown;
+			}
 			console.log('Message SET TO ---> ' + state.message);
+			console.log('API Status SET TO ---> ' + state.api_status);
 		},
 
 		updateHomepageEmoji: (state, payload) => {
@@ -96,14 +91,18 @@ export const store = new Vuex.Store({
 			console.log('Message is ', context.state.message);
 			if(! context.state.message) {
 				console.log('Going to fetch message');
-				Vue.http.get(context.state.baseUrl)
+
+				const url = context.state.baseUrl;
+
+				Vue.http.get(url)
 				.then(data => {
 					return data.json()
 				})
 				.then(data => {
-					context.commit('updateMessage', data.message);
+					context.commit('updateMessage', 'good');
 				})
 				.catch(error => {
+					context.commit('updateMessage', 'bad');
 					console.log('Error fetching data, ' + error);
 				});
 			}
@@ -117,7 +116,7 @@ export const store = new Vuex.Store({
 			if(_.isEmpty(context.state.homepageEmoji)) {
 				console.log('Going to fetch homepageemoji');
 
-				const url = context.state.baseUrl + context.state.homepageEndpoint;
+				const url = context.getters.homepageUrl;
 
 				Vue.http.get(url)
 				.then(data => {
@@ -140,7 +139,8 @@ export const store = new Vuex.Store({
 			if(_.isEmpty(context.state.categories)) {
 				console.log('Going to fetch categories');
 
-				const url = context.state.baseUrl + context.state.categoriesEndpoint;
+				// const url = context.state.baseUrl + context.state.categoriesEndpoint;
+				const url = context.getters.categoriesUrl;
 
 				Vue.http.get(url)
 				.then(data => {
@@ -160,11 +160,11 @@ export const store = new Vuex.Store({
 
 		fetchStats: context => {
 			console.log('stats is ', context.state.stats);
-			// if(_.isEmpty(context.state.stats)) {
-			if(true) {
+			if(context.state.stats['Total Emojis'] === 0) {
 				console.log('Going to fetch stats');
 
-				const url = context.state.baseUrl + context.state.statsEndpoint;
+				// const url = context.state.baseUrl + context.state.statsEndpoint;
+				const url = context.getters.statsUrl;
 
 				Vue.http.get(url)
 				.then(data => {
@@ -190,7 +190,8 @@ export const store = new Vuex.Store({
 			if(_.isEmpty(context.state.sampleRequest)) {
 				console.log('Going to fetch sample request');
 
-				const url = context.state.baseUrl + context.state.sampleRequestEndpoint;
+				const url = context.getters.sampleRequestUrl;
+				// const url = context.state.baseUrl + context.state.sampleRequestQueryParams;
 
 				Vue.http.get(url)
 				.then(data => {

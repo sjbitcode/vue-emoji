@@ -27,11 +27,16 @@
 
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
         computed: {
-            title() {
-                return this.$store.state.title;
-            }
+            // title() {
+            //     return this.$store.state.title;
+            // }
+            ...mapState([
+                'title'
+            ])
         }
     }
 </script>

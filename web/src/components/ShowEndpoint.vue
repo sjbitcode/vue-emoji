@@ -4,7 +4,7 @@
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        {{ endpoint_info.endpoint_name }}
+                        {{ getSingleData.endpoint_name }}
                     </h1>
                     <h2 class="subtitle">
                         {{ endpoint_info.endpoint_description }}
@@ -35,12 +35,15 @@
                         <div class="tile is-child">
                             <h1 class="req_res">Request:</h1>
                             <highlight-code>
-                            {{ endpoint_info.endpoint_url }}</highlight-code>
+                                {{ getSingleData.endpoint_url }}
+                            </highlight-code>
                         </div>
 
                         <div class="tile is-child">
                             <h1 class="req_res">Response:</h1>
-                            <highlight-code lang="javascript">{{ endpoint_info.data }}</highlight-code>
+                            <highlight-code lang="javascript">
+                                {{ getSingleData.data }}
+                            </highlight-code>
                         </div>
                     </div>
                     
@@ -53,9 +56,10 @@
 
 
 <script>
-    import { mapState } from 'vuex';
-    import { mapGetters } from 'vuex';
     import _ from 'lodash';
+    import { mapGetters } from 'vuex';
+    import { mapState } from 'vuex';
+    
     export default {
         props: {
             endpoint: {
@@ -68,17 +72,13 @@
             return {
                 endpoint_info: {},
 
-                // emoji endpoint info
-                emoji: {
-                    endpoint_name: '/emoji',
+                emoji_info: {
                     endpoint_description: 'Used to get emoji data \
                                            such as shortcode, Unicode \
                                            code point, UTF-16 surrogate \
                                            pairs, shortened codepoint, \
                                            main category, subcategory \
                                            and keywords.',
-                    endpoint_url: 'http://localhost:8000/emoji?q=smile&limit=2',
-                    data: {},
                     params_data: [
                         {
                             'name': 'q',
@@ -127,12 +127,8 @@
                     ]
                 },
 
-                // categories endpoint info
-                categories: {
-                    endpoint_name: '/categories',
+                categories_info: {
                     endpoint_description: 'Used to get a list of all main categories and their sub-categories.',
-                    endpoint_url: 'http://localhost:8000/categories',
-                    data: {},
                     params_columns: [
                         {
                             field: 'name',
@@ -156,16 +152,12 @@
                     ]
                 },
                 
-                //stats endpoint info
-                stats: {
-                    endpoint_name: '/stats',
+                stats_info: {
                     endpoint_description: 'Used to get some numerical \
                                            data about the api such as total \
                                                 emoji, recently added emoji, total \
                                                 main categories, total sub-categories \
                                                 and total keywords across all emoji',
-                    endpoint_url: 'http://localhost:8000/stats',
-                    data: {},
                     params_columns: [
                         {
                             field: 'name',
@@ -210,85 +202,67 @@
 
         methods: {
             showEndpointInfo: function() {
-                /* 
-                   For current endpoint, make the api call,
-                   update the specific endpoint's data,
-                   then set endpoint_info equal to 
-                   specific endpoint info. 
-                */
 
                 if(this.endpoint === 'emoji') {
-
-                    if (_.isEmpty(this.emoji.data)) {
-
-                        this.$http.get(this.emoji.endpoint_url)
-                        .then(function(data) {
-                            return data.json();
-                        })
-                        .then(function(data) {
-                            this.emoji.data = data;
-                        });
-                    }
-                    this.endpoint_info = this.emoji;
+                    this.endpoint_info = this.emoji_info;
                 }
 
                 else if (this.endpoint === 'categories') {
-
-                    if (_.isEmpty(this.categories.data)) {
-
-                        this.$http.get(this.categories.endpoint_url)
-                        .then(function(data) {
-                            return data.json();
-                        })
-                        .then(function(data) {
-                            this.categories.data = data;
-                        });
-                    }
-                    this.endpoint_info = this.categories;
+                    this.endpoint_info = this.categories_info;
                 }
 
                 else if(this.endpoint === 'stats') {
-
-                    if (_.isEmpty(this.stats.data)) {
-                        this.$http.get(this.stats.endpoint_url)
-                        .then(function(data) {
-                            return data.json();
-                        })
-                        .then(function(data) {
-                            this.stats.data = data;
-                        });
-                    }
-                    this.endpoint_info = this.stats;
+                    this.endpoint_info = this.stats_info;
                 }
             }
         },
 
-        
-        // computed: mapState({
-        //     categories_data: state => state.categories,
-        //     stats_data: state => state.stats,
-        //     emoji_data: state => state.sampleRequest,
-
-        // }),
         computed: {
             ...mapState([
+                'sampleRequest',
                 'categories',
                 'stats',
-                'sampleRequest'
+                'emojiEndpoint',
+                'categoriesEndpoint',
+                'statsEndpoint'
             ]),
 
             ...mapGetters([
+                'sampleRequestUrl',
                 'categoriesUrl',
                 'statsUrl',
-                'sampleRequestUrl'
-            ])
+            ]),
+
+            getSingleData: function() {
+                if (this.endpoint === 'emoji') {
+                    this.$store.dispatch('fetchSampleEmojiRequest');
+                    return {
+                        data: this.sampleRequest,
+                        endpoint_name: this.emojiEndpoint,
+                        endpoint_url: this.sampleRequestUrl
+                    }
+                }
+                else if (this.endpoint === 'categories') {
+                    this.$store.dispatch('fetchCategories');
+                    return {
+                        data: this.categories,
+                        endpoint_name: this.categoriesEndpoint,
+                        endpoint_url: this.categoriesUrl
+                    }
+                }
+                else if (this.endpoint === 'stats') {
+                    this.$store.dispatch('fetchStats');
+                    return {
+                        data: this.stats,
+                        endpoint_name: this.statsEndpoint,
+                        endpoint_url: this.statsUrl
+                    }
+                }
+            }
         },
 
         created() {
             this.showEndpointInfo();
-            this.$store.dispatch('fetchSampleEmojiRequest');
-            this.$store.dispatch('fetchCategories');
-            this.$store.dispatch('fetchStats');
         },
 
         watch: {

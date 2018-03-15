@@ -14,7 +14,7 @@
                                     </h1>
 
                                     <span class="description">
-                                        The base url is <span class="code">http://localhost:8000/</span>.<br>
+                                        The base url is <span class="code">{{ baseUrl }}</span>.<br>
                                         All requests are GET requests.<br>
                                         All requests use the <span class="code">application/json</span>
                                         content-type.<br>
@@ -23,7 +23,7 @@
                                     <h2 class="heading">
                                         API status: 
                                         <span class="api-status-emoji">
-                                            {{ this.api_status }}
+                                            {{ api_status }}
                                         </span>
                                     </h2>
 
@@ -61,8 +61,9 @@
 
 
 <script>
-    import ShowEndpoint from './ShowEndpoint'
-
+    import { mapState } from 'vuex';
+    import ShowEndpoint from './ShowEndpoint';
+    
     export default {
         components: {
             'show-endpoint': ShowEndpoint
@@ -70,7 +71,7 @@
 
         data() {
             return {
-                api_status: '\ud83d\udc4d\ud83c\udffc',
+                // api_status: '\ud83d\udc4d\ud83c\udffc',
                 active_button: 'emoji'
             }
         },
@@ -79,6 +80,17 @@
             activate: function(endpoint) {
                 this.active_button = endpoint;
             }
+        },
+
+        computed: {
+            ...mapState([
+                'baseUrl',
+                'api_status'
+            ])
+        },
+
+        created() {
+            this.$store.dispatch('fetchMessage');
         }
     }
 </script>

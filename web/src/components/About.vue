@@ -62,15 +62,15 @@
                         <div>
                             <p class="heading">Total Emoji</p>
                             <p class="title">
-                                {{ stats['Total Emojis'].toLocaleString() }}
+                                {{ stats['Total Emojis'] | locale-string }}
                             </p>
                         </div>
                     </div>
-                    <!-- <div class="level-item has-text-centered">
+                    <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Recent Emoji</p>
                             <p class="title">
-                                {{ recentlyAddedEmoji }}
+                                {{ stats['Recently Added Emojis'] | locale-string }}
                             </p>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <div>
                             <p class="heading">Keywords</p>
                             <p class="title">
-                                {{ totalKeywords }}
+                                {{ stats['Total Keywords'] | locale-string }}
                             </p>
                         </div>
                     </div>
@@ -86,10 +86,10 @@
                         <div>
                             <p class="heading">Categories</p>
                             <p class="title">
-                                {{ totalSubCategories }}
+                                {{ stats['Total Sub Categories'] | locale-string }}
                             </p>
                         </div>
-                    </div> -->
+                    </div>
                 </nav>
                 </div>
             </div>
@@ -100,7 +100,7 @@
 
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapState } from 'vuex';
 
     export default {
         data() {
@@ -124,34 +124,24 @@
                 this.$toast.open('Copied!')
             },
 
-            fetchData() {
-                this.$store.dispatch('fetchStats');
-            }
+            // fetchData() {
+            //     this.$store.dispatch('fetchStats');
+            // }
         },
 
         computed: {
-            // message() {
-            //     return this.$store.state.message;
-            // },
-
-            stats() {
-                return this.$store.state.stats;
-            }
-
-            // ...mapGetters({
-            //     total_emoji: 'totalEmoji'
-            //     // 'recentlyAddedEmoji',
-            //     // 'totalKeywords',
-            //     // 'totalSubCategories'
-            // })
-
+            ...mapState([
+                'stats'
+            ])
+            // stats() {
+            //     return this.$store.state.stats;
+            // }
         },
 
         created() {
             console.log('ABOUT COMPONENT CREATED');
-            // this.$store.dispatch('fetchMessage');
-            // this.$store.dispatch('fetchStats');
-            this.fetchData();
+            // this.fetchData();
+            this.$store.dispatch('fetchStats');
         }
     }
 </script>
