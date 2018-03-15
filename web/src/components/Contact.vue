@@ -3,8 +3,12 @@
         <div class="hero-body">
             <div class="container">
                 <div class="columns">
-                    <div class="column is-3"></div>
 
+                    <!-- Filler column -->
+                    <div class="column is-3"></div>
+                    <!-- end Filler column -->
+
+                    <!-- Contact Main -->
                     <div class="column has-text-centered">
 
                         <div class="box">
@@ -95,8 +99,11 @@
                         </div>
                         
                     </div>
+                    <!-- end Contact Main -->
 
+                    <!-- Filler column -->
                     <div class="column is-3"></div>
+                    <!-- end Filler column -->
                     
                 </div>
             </div>

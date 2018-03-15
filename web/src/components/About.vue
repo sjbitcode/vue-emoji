@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- Emoji demo -->
         <section>
             <div class="container top-space">
                 <div class="tile is-ancestor is-mobile">
@@ -44,7 +45,9 @@
                 </div>
             </div>
         </section>
+        <!-- end Emoji demo -->
 
+        <!-- About text -->
         <section class="section">
             <div class="container">
                 <p class="title is-4 has-text-centered" style="color: #4c421a;">
@@ -53,7 +56,9 @@
                 </p>
             </div>
         </section>
+        <!-- end About text -->
 
+        <!-- Stats banner -->
         <section class="hero is-success">
             <div class="hero-body">
                 <div class="container">
@@ -94,6 +99,7 @@
                 </div>
             </div>
         </section>
+        <!-- end Stats banner -->
     </div>
     
 </template>

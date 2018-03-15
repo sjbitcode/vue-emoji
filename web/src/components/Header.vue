@@ -1,7 +1,10 @@
 <template>
+
     <section class="hero is-primary is-bold">
         <div class="hero-body">
             <div class="container has-text-centered">
+
+                <!-- Title -->
                 <router-link tag="h1" class="title" to="/" exact>
                     &#x1F649; {{ title }} &#x1F64A;
 
@@ -9,7 +12,9 @@
                         search &amp; filter emoji
                     </h2>
                 </router-link>
+                <!-- end Title -->
 
+                <!-- Main Nav -->
                 <div>
                     <nav>
                         <ul class="buttons has-addons is-centered">
@@ -20,9 +25,12 @@
                         </ul>
                     </nav>
                 </div>
+                <!-- end Main Nav-->
+
             </div>
         </div>
     </section>
+    
 </template>
 
 

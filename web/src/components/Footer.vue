@@ -1,6 +1,8 @@
 <template>
 
     <section class="hero is-primary is-bold">
+
+        <!-- Footer Main -->
         <div class="hero-body">
             <div class="container">
                 <div class="content has-text-centered">
@@ -27,7 +29,9 @@
                 </div>
             </div>
         </div>
+        <!-- end Footer Main -->
 
+        <!-- Riddle -->
         <div class="hero-foot">
             <div class="container has-text-centered">
                 <a v-on:click="riddle">
@@ -35,8 +39,9 @@
                 </a>
             </div>
         </div>
+        <!-- end Riddle -->
+        
     </section>
-
 	
 </template>
 

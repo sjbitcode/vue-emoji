@@ -4,54 +4,70 @@
         <div class="container bottom-space">
 
             <div class="columns has-text-centered">
+                <!-- Filler column -->
                 <div class="column is-2 left-sidebar"></div>
+                <!-- end Filler column -->
+
+                <!-- Search -->
                 <div class="column main-column">
+
+                    <!-- Search Input -->
                     <div class="field is-mobile">
-                <div class="control">
-                    <input class="input is-medium is-rounded" v-model="search" type="text" placeholder="Search for Emoji">
-
-                </div>
-            </div>
-
-            <div class="field is-grouped is-grouped-centered is-mobile">
-
-                <div class="field">
-                    <div class="control is-expanded">
-                        <div class="select is-medium is-rounded">
-                            <select v-model="main_category_query">
-                                <option value="" selected disabled>Main Category</option>
-                                <option value="">All</option>
-                                <option v-for="category_obj in categories" v-bind:value="category_obj.name">
-                                    {{ category_obj.name }}
-                                </option>
-                            </select>
-                            
+                        <div class="control">
+                            <input class="input is-medium is-rounded" v-model="search" type="text" placeholder="Search for Emoji">
                         </div>
                     </div>
-                </div>
+                    <!-- end Search Input -->
 
-                <div class="field">
-                    <div class="control is-expanded">
-                        <div class="select is-medium is-rounded">
-                            <select v-model="sub_category_query">
-                                <option value="" selected disabled>Sub Category</option>
-                                <option value="">All</option>
-                                <option v-for="subcategory in selected_subcategories">
-                                    {{ subcategory }}
-                                </option>
-                            </select>
-                            
+                    <div class="field is-grouped is-grouped-centered is-mobile">
+
+                        <!-- Main Category select -->
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <div class="select is-medium is-rounded">
+                                    <select v-model="main_category_query">
+                                        <option value="" selected disabled>Main Category</option>
+                                        <option value="">All</option>
+                                        <option v-for="category_obj in categories" v-bind:value="category_obj.name">
+                                            {{ category_obj.name }}
+                                        </option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
                         </div>
+                        <!-- end Main Category select -->
+
+                        <!-- Sub Category select -->
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <div class="select is-medium is-rounded">
+                                    <select v-model="sub_category_query">
+                                        <option value="" selected disabled>Sub Category</option>
+                                        <option value="">All</option>
+                                        <option v-for="subcategory in selected_subcategories">
+                                            {{ subcategory }}
+                                        </option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end Sub Category select -->
+
                     </div>
                 </div>
-            </div>
-                </div>
+                <!-- end Search -->
+
+                <!-- Filler column -->
                 <div class="column is-2 right-sidebar"></div>
+                <!-- end Filler column -->
             </div>
 
             
         </div>
 
+        <!-- showEmoji component or no results -->
         <div class="container">
             <div v-if="no_results_found">
                 <div class="content has-text-centered">
@@ -63,12 +79,15 @@
                 <show-emoji v-bind:emojis="emojis" v-bind:homepage="showSelectEmoji"></show-emoji>
             </div>
         </div>
+        <!-- end showEmoji component or no results -->
 
+        <!-- Loader -->
         <div class="container">
             <div v-show="loading">
                 <div class="spinner ld ld-spin">{{ emoji_spinner }}</div>
             </div>
         </div>
+        <!-- end Loader -->
         
     </section>
 </template>

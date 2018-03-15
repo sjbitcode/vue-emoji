@@ -1,9 +1,11 @@
 <template>
     <div class="container is-fluid"> 
 
+        <!-- Emoji columns -->
         <div class="columns is-multiline is-mobile">
             <div v-for="emoji in emojiToDisplay">
 
+                <!-- Single Emoji -->
                 <b-tooltip v-bind:label="formatShortcode(emoji.shortcode)">
 
                     <div class="column" v-on:click="copy(emoji.shortcode)" v-bind:ref="'emoji_' + emoji.shortcode">
@@ -16,8 +18,12 @@
                     </div>
 
                 </b-tooltip>
+                <!-- end Single Emoji -->
+
             </div>
         </div>
+        <!-- end Emoji columns  -->
+
     </div>
 </template>
 

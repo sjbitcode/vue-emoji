@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- Api Main Nav -->
         <section class="hero is-medium top-hero">
             <div class="hero-body">
                 <div class="container">
@@ -30,6 +31,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- end Left side -->
 
                         <!-- Right side -->
                         <div class="level-right">
@@ -48,14 +50,18 @@
                                 </a>
                             </p>
                         </div>
+                        <!-- end Right side -->
                     </nav>
                 </div>
             </div>
         </section>
+        <!-- end Api Main Nav -->
 
+        <!-- showEndpoint component -->
         <div>
             <show-endpoint v-bind:endpoint="active_button"></show-endpoint>
         </div>
+        <!-- end showEndpoint component -->
     </div>
 </template>
 
