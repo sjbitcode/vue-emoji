@@ -122,25 +122,16 @@
             copy() {
                 this.$clipboard(this.$refs.clickedemoji.innerText);
                 this.$toast.open('Copied!')
-            },
-
-            // fetchData() {
-            //     this.$store.dispatch('fetchStats');
-            // }
+            }
         },
 
         computed: {
             ...mapState([
                 'stats'
             ])
-            // stats() {
-            //     return this.$store.state.stats;
-            // }
         },
 
         created() {
-            console.log('ABOUT COMPONENT CREATED');
-            // this.fetchData();
             this.$store.dispatch('fetchStats');
         }
     }

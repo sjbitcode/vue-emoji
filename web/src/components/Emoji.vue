@@ -154,14 +154,11 @@
 
                 // if no search params, set url to null in order to load homepage emoji from vuex store.
                 if (this.search == '' && this.main_category_query == '' && this.sub_category_query == '') {
-                    console.log('url gonna be null');
                     url = null;
                     this.showSelectEmoji = true;
                 }
                 else {
-                    // url = `http://localhost:8000/emoji?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
-
-                    url = `${this.baseUrl}${this.emojiEndpoint}?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}`;
+                    url = `${this.baseUrl}${this.emojiEndpoint}?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}&flat=true`;
                     this.showSelectEmoji = false;
                 }
                 
@@ -210,7 +207,6 @@
         },
 
         created() {
-            console.log('EMOJI COMPONENT CREATED');
 
             this.$store.dispatch('fetchHomepageEmoji');
             this.$store.dispatch('fetchCategories');

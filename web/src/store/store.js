@@ -13,14 +13,15 @@ export const store = new Vuex.Store({
 		thumbsDown: '\ud83d\udc4e\ud83c\udffc',
 
 		baseUrl: 'http://localhost:8000',
+		emojiEndpoint: '/emoji',
+		categoriesEndpoint: '/categories',
+		statsEndpoint: '/stats',
+		homepageEndpoint: '/homepage?flat=true',
+		sampleRequestQueryParams: '?q=smile&limit=2',
 
 		homepageEmoji: [],
-		homepageEndpoint: '/homepage?flat=true',
-
 		categories: {},
-		categoriesEndpoint: '/categories',
-
-		statsEndpoint: '/stats',
+		sampleRequest: {},
 		stats: {
 			'date_requested': '',
 			'Total Emojis': 0,
@@ -28,11 +29,7 @@ export const store = new Vuex.Store({
 			'Recently Added Emojis': 0,
 			'Total Main Categories': 0,
 			'Total Sub Categories': 0
-		},
-
-		emojiEndpoint: '/emoji',
-		sampleRequest: {},
-		sampleRequestQueryParams: '?q=smile&limit=2'
+		}
 	},
 
 	getters: {
@@ -61,36 +58,28 @@ export const store = new Vuex.Store({
 			else if (payload === 'bad') {
 				state.api_status = state.thumbsDown;
 			}
-			console.log('Message SET TO ---> ' + state.message);
-			console.log('API Status SET TO ---> ' + state.api_status);
 		},
 
 		updateHomepageEmoji: (state, payload) => {
 			state.homepageEmoji = payload;
-			console.log('homepageEmoji SET TO ---> ' + state.homepageEmoji);
 		},
 
 		updateCategories: (state, payload) => {
 			state.categories = payload;
-			console.log('categories SET TO ---> ' + state.categories);
 		},
 
 		updateStats: (state, payload) => {
 			state.stats = payload;
-			console.log('stats SET TO ---> ', state.stats);
 		},
 
 		updateSampleEmojiRequest: (state, payload) => {
 			state.sampleRequest = payload;
-			console.log('sampleRequest SET TO ---> ' + state.sampleRequest);
 		}
 	},
 
 	actions: {
 		fetchMessage: context => {
-			console.log('Message is ', context.state.message);
 			if(! context.state.message) {
-				console.log('Going to fetch message');
 
 				const url = context.state.baseUrl;
 
@@ -106,15 +95,10 @@ export const store = new Vuex.Store({
 					console.log('Error fetching data, ' + error);
 				});
 			}
-			else {
-				console.log('Not fetching the message');
-			}
 		},
 
 		fetchHomepageEmoji: context => {
-			console.log('homepageEmoji is ' + context.state.homepageEmoji);
 			if(_.isEmpty(context.state.homepageEmoji)) {
-				console.log('Going to fetch homepageemoji');
 
 				const url = context.getters.homepageUrl;
 
@@ -129,17 +113,11 @@ export const store = new Vuex.Store({
 					console.log('Error fetching data, ' + error);
 				});
 			}
-			else {
-				console.log('Not fetching home page emojis');
-			}
 		},
 
 		fetchCategories: context => {
-			console.log('categories is ' + context.state.categories);
 			if(_.isEmpty(context.state.categories)) {
-				console.log('Going to fetch categories');
-
-				// const url = context.state.baseUrl + context.state.categoriesEndpoint;
+				
 				const url = context.getters.categoriesUrl;
 
 				Vue.http.get(url)
@@ -153,46 +131,31 @@ export const store = new Vuex.Store({
 					console.log('Error fetching data, ' + error);
 				});
 			}
-			else {
-				console.log('Not fetching categories');
-			}
 		},
 
 		fetchStats: context => {
-			console.log('stats is ', context.state.stats);
 			if(context.state.stats['Total Emojis'] === 0) {
-				console.log('Going to fetch stats');
-
-				// const url = context.state.baseUrl + context.state.statsEndpoint;
+				
 				const url = context.getters.statsUrl;
 
 				Vue.http.get(url)
 				.then(data => {
-					//context.commit('updateStats', data.json())
 					return data.json();
 				})
 				.then(data => {
-					//debugger;
-					console.log('stats DATA is ', data);
 					context.commit('updateStats', data);
 				})
 				.catch(error => {
 					console.log('Error fetching data, ' + error);
 				});
 			}
-			else {
-				console.log('Not fetching stats');
-			}
 		},
 
 		fetchSampleEmojiRequest: context => {
-			console.log('sample request is ' + context.state.sampleRequest);
 			if(_.isEmpty(context.state.sampleRequest)) {
-				console.log('Going to fetch sample request');
-
+	
 				const url = context.getters.sampleRequestUrl;
-				// const url = context.state.baseUrl + context.state.sampleRequestQueryParams;
-
+	
 				Vue.http.get(url)
 				.then(data => {
 					return data.json()
@@ -203,9 +166,6 @@ export const store = new Vuex.Store({
 				.catch(error => {
 					console.log('Error fetching data, ' + error);
 				});
-			}
-			else {
-				console.log('Not fetching stats');
 			}
 		}
 	}

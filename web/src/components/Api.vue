@@ -71,7 +71,6 @@
 
         data() {
             return {
-                // api_status: '\ud83d\udc4d\ud83c\udffc',
                 active_button: 'emoji'
             }
         },
