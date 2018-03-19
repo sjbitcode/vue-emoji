@@ -66,6 +66,8 @@
             ]),
 
             emojiToDisplay() {
+                /* Based on which prop is truthy, display correct set of emoji. */
+
                 if (this.homepage) {
                     return this.homepageEmoji;
                 }
@@ -77,7 +79,8 @@
 
         methods: {
             copy: function(shortcode) {
-              // Find ref and copy to clipboard
+              /* Find ref and copy to clipboard */
+
               var ref_name = 'emoji_' + shortcode;
               this.$clipboard(this.$refs[ref_name][0].innerText);
             },

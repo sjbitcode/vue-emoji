@@ -123,7 +123,8 @@
 
         methods: {
             bottomVisible() {
-                // https://scotch.io/tutorials/simple-asynchronous-infinite-scroll-with-vue-watchers
+                /* https://scotch.io/tutorials/simple-asynchronous-infinite-scroll-with-vue-watchers */
+
                 const scrollY = window.scrollY;
                 const visible = document.documentElement.clientHeight;
                 const pageHeight = document.documentElement.scrollHeight;
@@ -132,7 +133,8 @@
             },
 
             loadEmoji() {
-                // Get emoji data, store in this.emojis, set resourceUrl to next page of paginated results.
+                /* Get emoji data, store in this.emojis, set resourceUrl to next page of paginated results. */
+
                 if (this.resourceUrl != null) {
 
                     this.$http.get(this.resourceUrl)
@@ -166,16 +168,17 @@
             },
 
             debounceSearch: _.debounce(function() {
-                // Debounce search feature to fetch new results based on search parameters.
+                /* Debounce search feature to fetch new results based on search parameters.*/
+                
                 this.loading = true;
-
                 let url = '';
 
-                // if no search params, set url to null in order to load homepage emoji from vuex store.
-                if (this.search == '' && this.main_category_query == '' && this.sub_category_query == '') {
+                // if no search params, set url to null in order to load homepage emoji from vuex store. Child component actually loads homepage emoji.
+                if (this.search === '' && this.main_category_query === '' && this.sub_category_query === '') {
                     url = null;
                     this.showSelectEmoji = true;
                 }
+                // else, construct url to pass to loadEmoji method.
                 else {
                     url = `${this.baseUrl}${this.emojiEndpoint}?q=${this.search}&main_category=${this.main_category_query}&sub_category=${this.sub_category_query}&flat=true`;
                     this.showSelectEmoji = false;
@@ -190,7 +193,8 @@
 
         computed: {
             selected_subcategories: function() {
-                // Return the list of subcategories based on the selected main category.
+                /* Return the list of subcategories based on the selected main category. */
+
                 if (this.main_category_query) {
                     let selected_main_category = this.categories.find(obj => 
                         (obj.name == this.main_category_query)
@@ -227,6 +231,7 @@
 
         created() {
 
+            // Dispatch actions to fetch initial data
             this.$store.dispatch('fetchHomepageEmoji');
             this.$store.dispatch('fetchCategories');
 
@@ -235,7 +240,6 @@
             })
             this.loading = true;
             this.fresh_search = true;
-
 
             this.loadEmoji();
 

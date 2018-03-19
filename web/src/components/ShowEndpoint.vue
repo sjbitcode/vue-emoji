@@ -202,6 +202,7 @@
 
         methods: {
             showEndpointInfo: function() {
+                /* Pass static data about each endpoint to this.endpoint_info */
 
                 if(this.endpoint === 'emoji') {
                     this.endpoint_info = this.emoji_info;
@@ -234,6 +235,11 @@
             ]),
 
             getSingleData: function() {
+                /* 
+                    Dispatch actions to get data when needed 
+                    depending on which endpoint selected. 
+                */
+
                 if (this.endpoint === 'emoji') {
                     this.$store.dispatch('fetchSampleEmojiRequest');
                     return {
