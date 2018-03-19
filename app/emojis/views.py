@@ -15,7 +15,7 @@ from .serializers import EmojiSerializer, MainCategorySerializer
 
 class HelloView(APIView):
 	def get(self, request):
-		return Response({'message': 'Hello from the API'}, status=status.HTTP_200_OK)
+		return Response({'message': 'Hello from the Emoji Index API v1'}, status=status.HTTP_200_OK)
 
 
 class Stats(APIView):
