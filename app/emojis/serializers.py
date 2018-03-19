@@ -11,11 +11,13 @@ class EmojiSerializer(serializers.ModelSerializer):
 		'''
 		super(EmojiSerializer, self).__init__(*args, **kwargs)
 
-		flat = self.context['request'].query_params.get('flat')
-		if flat in ['True', 'true', 'TRUE']:
-			self.fields.pop('main_category')
-			self.fields.pop('sub_category')
-			self.fields.pop('keywords')
+		if self.context.get('request', None):
+			flat = self.context['request'].query_params.get('flat')
+			if flat in ['True', 'true', 'TRUE']:
+				self.fields.pop('main_category')
+				self.fields.pop('sub_category')
+				self.fields.pop('keywords')
+
  
 	surrogate_pairs = serializers.StringRelatedField()
 	shortened_codepoint = serializers.StringRelatedField()
@@ -25,7 +27,11 @@ class EmojiSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Emoji
-		fields = ['shortcode', 'codepoint', 'surrogate_pairs', 'shortened_codepoint', 'main_category', 'sub_category', 'keywords']
+		fields = [
+					'shortcode', 'codepoint', 
+					'surrogate_pairs', 'shortened_codepoint', 
+					'main_category', 'sub_category', 'keywords'
+				]
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
