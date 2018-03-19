@@ -59,6 +59,8 @@
 
                                             <a href="https://vuejs.org/" target="_blank" class="tag is-rounded">VueJS</a>
 
+                                            <a href="https://vuex.vuejs.org/en/" target="_blank" class="tag is-rounded">Vuex</a>
+
                                             <a href="https://webpack.js.org/" target="_blank" class="tag is-rounded">Webpack</a>
 
                                         </div>
