@@ -20,11 +20,5 @@ export default {
 }
 </script>
 
-<style scoped>
-h1 {
-  padding: 10px;
-  border: 2px solid black;
-  width: 100px;
-  background-color: #ffe;
-}
+<style>
 </style>
