@@ -36,7 +36,7 @@ class TestEmojiSerializer(TestCase):
 		)
 
 	def test_single_emoji_contains_expected_fields(self):
-		data = EmojiSerializer(instance=self.emoji_pizza).data
+		data = EmojiSerializer(self.emoji_pizza).data
 	
 		self.assertEqual(
 			set(data.keys()),
@@ -51,11 +51,11 @@ class TestEmojiSerializer(TestCase):
 			]))
 
 	def test_single_emoji_keywords(self):
-		data = EmojiSerializer(instance=self.emoji_pizza).data
+		data = EmojiSerializer(self.emoji_pizza).data
 		self.assertEqual(set(data.get('keywords')), set(['cheesy', 'pizza']))
 
 	def test_serialize_multiple_emoji(self):
-		data = EmojiSerializer(instance=[self.emoji_pizza, self.emoji_rabbit], many=True).data
+		data = EmojiSerializer([self.emoji_pizza, self.emoji_rabbit], many=True).data
 		self.assertEqual(len(data), 2)
 
 	def test_single_sub_category_contains_expected_fields(self):
