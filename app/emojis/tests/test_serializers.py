@@ -4,7 +4,7 @@ from emojis.models import Emoji, MainCategory, SubCategory, Keyword
 from emojis.serializers import EmojiSerializer, SubCategorySerializer, MainCategorySerializer
 
 
-class TestEmojiSerializer(TestCase):
+class TestSerializers(TestCase):
 	def setUp(self):
 
 		self.main_category_food = MainCategory.objects.create(name='Food & Drink')
