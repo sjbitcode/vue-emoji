@@ -2,6 +2,7 @@ import Emoji from './components/Emoji.vue';
 import About from './components/About.vue';
 import Api from './components/Api.vue';
 import Contact from './components/Contact.vue';
+import NotFound from './components/NotFound.vue';
 
 export default [
 	{
@@ -22,6 +23,11 @@ export default [
 	{
 		path: '/contact',
 		component: Contact
+	},
+
+	{
+		path: '/404',
+		component: NotFound
 	}
 
 ]
