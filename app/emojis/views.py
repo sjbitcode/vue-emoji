@@ -125,5 +125,5 @@ class ListEmojis(ListAPIView):
 
 
 class ListCategories(ListAPIView):
-	queryset = MainCategory.objects.all()
+	queryset = MainCategory.objects.all().order_by('name')
 	serializer_class = MainCategorySerializer

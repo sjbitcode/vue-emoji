@@ -76,7 +76,6 @@ class TestSerializers(TestCase):
 		self.assertEqual(set(data.keys()), set(['name', 'subcategories']))
 		self.assertEqual(set(data.get('subcategories')), set(['food-prepared', 'food-fruit']))
 
-
 	def test_serialize_multiple_main_categories(self):
 		main_categories = [
 			self.main_category_food,

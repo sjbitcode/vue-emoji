@@ -43,7 +43,7 @@ class TestKeyword(TestCase):
 		)
 
 		self.keyword_cheese = Keyword.objects.create(name='cheese')
-		self.keyword.pizza = Keyword.objects.create(name='pizza')
+		self.keyword_pizza = Keyword.objects.create(name='pizza')
 		self.keyword_cheese_wedge = Keyword.objects.create(name='cheese wedge')
 
 		self.emoji_pizza.keywords.add(self.keyword_cheese, self.keyword_pizza)
