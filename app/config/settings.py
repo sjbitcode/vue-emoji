@@ -132,6 +132,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/usr/src/app/static'
+
+STATICFILES_DIR = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 
 
 REST_FRAMEWORK = {

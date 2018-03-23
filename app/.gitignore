@@ -107,3 +107,4 @@ venv.bak/
 # misc
 misc/
 .DS_Store
+static/
