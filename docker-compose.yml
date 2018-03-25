@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.5'
 
 services:
   postgres:
@@ -8,8 +8,8 @@ services:
     networks:
       - emoji_network
     volumes:
-         - pgdata:/var/lib/postgresql/data
-    env_file: ./app/dev.env
+      - pgdata:/var/lib/postgresql/data
+    env_file: ./deploy/secrets/dev.env
 
   app:
     image: sjbitcode/emoji-app
@@ -22,16 +22,42 @@ services:
       - postgres
     volumes:
       - ./app:/usr/src/app
+      - webdata:/usr/src/web2
     ports:
       - "8000:8000"
-    env_file: ./app/dev.env
+    env_file: ./deploy/secrets/dev.env
     command: python manage.py runserver 0.0.0.0:8000
-    stdin_open: true
-    tty: true
+    # stdin_open: true
+    # tty: true
+
+  web:
+    image: sjbitcode/emoji-web
+    build: ./web
+    container_name: web
+    volumes:
+      - webdata:/usr/src/web
+
+  nginx:
+    image: sjbitcode/emoji-nginx
+    build: ./nginx
+    restart: always
+    container_name: nginx
+    volumes:
+      - webdata:/usr/src/web2
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    networks:
+      - emoji_network
+    depends_on:
+      - app
+      - web
 
 
 volumes: 
   pgdata:
+  webdata:
+    name: webdata
 
 networks:
   emoji_network:
