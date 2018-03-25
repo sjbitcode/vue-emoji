@@ -20,7 +20,7 @@ Vue.use(Buefy, {
 });
 Vue.use(VueHighlightJS);
 
-
+// Declare router.
 const router = new VueRouter({
 	routes: Routes,
 	mode: 'history'
