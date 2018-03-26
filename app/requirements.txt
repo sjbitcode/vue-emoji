@@ -2,7 +2,6 @@ beautifulsoup4==4.6.0
 chardet==3.0.4
 Django==2.0.2
 djangorestframework==3.7.7
-dj-static==0.0.6
 psycopg2==2.7.4
 requests==2.18.4
 django-cors-headers==2.1.0
