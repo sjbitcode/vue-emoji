@@ -11,10 +11,8 @@ import 'csshake/dist/csshake.min.css';
 import 'highlight.js/styles/dracula.css';
 import { store } from './store/store';
 
-// Link stylesheets
 require('./assets/css/loading.css');
 require('./assets/css/style.css');
-
 
 
 Vue.use(VueResource);
