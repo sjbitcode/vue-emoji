@@ -133,11 +133,8 @@ FORCE_SCRIPT_NAME = '/myapp'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = '/usr/src/app/static'
-
 STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
-STATIC_ROOT = '/static'
+STATIC_ROOT = '/usr/src/app/static'
 
 
 
