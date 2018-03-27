@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-def env(key):
-    return os.environ.get(key, None)
+def env(key, default=None):
+    return os.environ.get(key, default)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -127,13 +127,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = '/myapp'
+# USE_X_FORWARDED_HOST = True
+# FORCE_SCRIPT_NAME = '/myapp'
+USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
+FORCE_SCRIPT_NAME = env('FORCE_SCRIPT_NAME')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
+STATIC_URL = env('FORCE_SCRIPT_NAME', '') + '/static/'
 STATIC_ROOT = '/usr/src/app/static'
 
 

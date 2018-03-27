@@ -6,6 +6,8 @@
 
 # dc pull && dc stop -t 1 && dc rm -fv && docker volume rm webdata && docker volume create --name=webdata && dc up -d
 
+echo -e "\nDeleting logs directory..."
+rm -rf logs
 
 echo -e "\nRunning dc stop -t 1..."
 docker-compose stop -t 1
