@@ -45,7 +45,6 @@ Vue.filter('format-code', function(value) {
 });
 
 Vue.filter('locale-string', function(value) {
-	console.log('to locale string');
 	return value.toLocaleString();
 });
 
