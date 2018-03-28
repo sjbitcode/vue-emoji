@@ -127,9 +127,9 @@ USE_L10N = True
 USE_TZ = True
 
 
-# USE_X_FORWARDED_HOST = False (DEFAULT VALUE)
-# FORCE_SCRIPT_NAME = None (DEFAULT VALUE)
+# Default: False
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST', False)
+# Default: None 
 FORCE_SCRIPT_NAME = env('FORCE_SCRIPT_NAME')
 
 # Static files (CSS, JavaScript, Images)
