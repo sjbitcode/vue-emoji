@@ -34,3 +34,7 @@ docker volume create --name=appstatic
 # Start docker-compose service
 echo -e "\nRunning dc up -d..."
 docker-compose -f docker-compose-staging.yml up -d
+
+# Make .gitignore inside logs directory
+touch ./logs/.gitignore
+echo "[^.]*" >> ./logs/.gitignore
