@@ -10,9 +10,8 @@ import 'buefy/lib/buefy.css'
 import 'csshake/dist/csshake.min.css';
 import 'highlight.js/styles/dracula.css';
 import { store } from './store/store';
-
-require('./assets/css/loading.css');
-require('./assets/css/style.css');
+import './assets/css/loading.css';
+import './assets/css/style.css';
 
 
 Vue.use(VueResource);
