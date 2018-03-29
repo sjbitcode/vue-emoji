@@ -54,6 +54,10 @@
                     Emoji Index makes it fun to search, filter, and explore
                     the latest emoji
                 </p>
+
+                <p class="has-text-centered" style="font-style:italic;">
+                    (All data was taken from the <a href="https://unicode.org/emoji/charts/emoji-list.html" target="_blank">official Emoji List, v11.0</a>)
+                </p>
             </div>
         </section>
         <!-- end About text -->
@@ -193,6 +197,7 @@ a {
 
 .emoji_display {
     font-size: 7em;
+    color: black;
 }
 
 .arrow{
