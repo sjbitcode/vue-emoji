@@ -10,6 +10,10 @@ sudo usermod -aG docker $(whoami)
 echo -e "\n-- Installing Python-pip --"
 sudo apt-get -y install python3-pip
 
+# Install setuptools
+echo -e "\n-- Installing python-setuptools --"
+sudo apt-get install python3-setuptools
+
 # Install Docker Compose.
 echo -e "\n-- Installing docker compose --"
 sudo pip3 install docker-compose
