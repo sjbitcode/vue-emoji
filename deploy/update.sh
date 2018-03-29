@@ -41,7 +41,7 @@ scp -i $KEY $LOCAL_COMPOSE_PROD $USER@$HOST:$REMOTE_COMPOSE_PROD
 
 # Copy env files to remote server.
 echo -e "\n-- Copying $ENV env files to remote server --"
-ENV_FILE="env.$ENV.env"
+ENV_FILE="$ENV.env"
 LOCAL_ENV_FILE="$PARENT_PATH/secrets/$ENV_FILE"
 REMOTE_ENV_DIR="/home/$USER/deploy/secrets"
 

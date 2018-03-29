@@ -72,7 +72,7 @@ ssh -i $KEY $USER@$HOST sudo usermod -aG docker $USER
 
 # Copy '_bash_profile' to remote server.
 echo -e "\n-- Copying bash profile to remote server --"
-LOCAL_BASH_PROFILE="$PARENT_PATH/_bash_profile"
+LOCAL_BASH_PROFILE="$PARENT_PATH/_bash_profile.sh"
 REMOTE_BASH_PROFILE="/home/$USER/.bash_profile"
 scp -i $KEY $LOCAL_BASH_PROFILE $USER@$HOST:$REMOTE_BASH_PROFILE
 
