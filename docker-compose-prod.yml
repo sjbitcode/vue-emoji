@@ -44,7 +44,7 @@ services:
       - appstatic:/usr/src/appstatic
       - webdata:/usr/src/webdata
     ports:
-      - "8080:80"
+      - "80:80"
     networks:
       - emoji_network
     depends_on:
