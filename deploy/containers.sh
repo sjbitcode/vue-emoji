@@ -44,11 +44,17 @@ STOP_CONTAINERS="docker-compose -f $COMPOSE_PROD stop -t 1"
 # Remove existing volumes.
 REMOVE_CONTAINERS="docker-compose -f $COMPOSE_PROD rm -fv"
 
+# Create webdata volume.
+CREATE_WEB_VOLUME="docker volume create --name=webdata"
+
+# Create appstatic colume.
+CREATE_APP_VOLUME="docker volume create --name=appstatic"
+
 # Recreate and start containers.
 RESTART_CONTAINERS="docker-compose -f $COMPOSE_PROD up -d"
 
 # Create deploy command.
-DEPLOY_CMD=$(echo "$PULL_CONTAINERS && $STOP_CONTAINERS && $REMOVE_CONTAINERS && $RESTART_CONTAINERS")
+DEPLOY_CMD=$(echo "$PULL_CONTAINERS && $STOP_CONTAINERS && $REMOVE_CONTAINERS && $CREATE_WEB_VOLUME && $CREATE_APP_VOLUME && $RESTART_CONTAINERS")
 
 # Execute deploy command.
 ssh -i $KEY $USER@$HOST $DEPLOY_CMD
