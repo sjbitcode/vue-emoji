@@ -11,10 +11,10 @@ export const store = new Vuex.Store({
 		api_status: '\ud83e\udd1e\ud83c\udffc',
 		thumbsUp: '\ud83d\udc4d\ud83c\udffc',
 		thumbsDown: '\ud83d\udc4e\ud83c\udffc',
+		hourglass: '\u23f3',
+		initialLoader: true,
 
-		// baseUrl: 'http://localhost:8080/api/v1',
 		baseUrl: `${process.env.API_URL}`,
-		// baseUrl: 'http://localhost:8000/api/v1',
 		emojiEndpoint: '/emoji',
 		categoriesEndpoint: '/categories',
 		statsEndpoint: '/stats',
@@ -64,6 +64,7 @@ export const store = new Vuex.Store({
 
 		updateHomepageEmoji: (state, payload) => {
 			state.homepageEmoji = payload;
+			state.initialLoader = false;
 		},
 
 		updateCategories: (state, payload) => {

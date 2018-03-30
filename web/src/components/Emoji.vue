@@ -2,7 +2,7 @@
     <section class="section">
 
         <!-- hourglass loader -->
-        <div v-if="initialLoading">
+        <div v-if="initialLoader">
             <div class="spinner ld ld-spin">{{ hourglass }}</div>
         </div>
         <!-- end hourglass loader -->
@@ -118,10 +118,10 @@
         data() {
             return {
                 emoji_spinner: '\ud83e\udd14',
-                hourglass: '\u23f3',
+                // hourglass: '\u23f3',
                 emoji_no_results:'\ud83e\uddd0',
                 loading: false,
-                initialLoading: true,
+                // initialLoading: true,
                 emojis: [],
                 search: '',
                 main_category_query: '',
@@ -221,7 +221,9 @@
             ...mapState([
                 'categories',
                 'baseUrl',
-                'emojiEndpoint'
+                'emojiEndpoint',
+                'hourglass',
+                'initialLoader'
             ])
         },
 
@@ -251,8 +253,6 @@
             window.addEventListener('scroll', () => {
                 this.bottom = this.bottomVisible();
             })
-
-            setTimeout(() => {this.initialLoading = false;}, 500);
 
             this.loading = true;
             this.fresh_search = true;
