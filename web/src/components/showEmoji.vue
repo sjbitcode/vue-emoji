@@ -2,7 +2,7 @@
     <div class="container is-fluid"> 
 
         <!-- Emoji columns -->
-        <div class="columns is-multiline is-mobile">
+        <div class="columns is-multiline is-mobile is-centered">
             <div v-for="emoji in emojiToDisplay">
 
                 <!-- Single Emoji -->
@@ -120,5 +120,12 @@
   100% {
       transform: scale(1.5);
   }
+}
+
+@media only screen and (max-width: 768px) {
+    .emoji {
+        font-size: 3em;
+        margin: 0 10px;
+    }
 }
 </style>

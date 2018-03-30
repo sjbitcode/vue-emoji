@@ -1,7 +1,15 @@
 <template>    
     <section class="section">
 
-        <div class="container bottom-space">
+        <!-- hourglass loader -->
+        <div v-if="initialLoading">
+            <div class="spinner ld ld-spin">{{ hourglass }}</div>
+        </div>
+        <!-- end hourglass loader -->
+
+        <!-- form and emojis -->
+        <div v-else>
+            <div class="container bottom-space">
 
             <div class="columns has-text-centered">
                 <!-- Filler column -->
@@ -9,7 +17,7 @@
                 <!-- end Filler column -->
 
                 <!-- Search -->
-                <div class="column main-column">
+                <div class="column main-column" id="search">
 
                     <!-- Search Input -->
                     <div class="field is-mobile">
@@ -19,7 +27,7 @@
                     </div>
                     <!-- end Search Input -->
 
-                    <div class="field is-grouped is-grouped-centered is-mobile">
+                    <div class="field is-grouped is-grouped-centered" id="category-search">
 
                         <!-- Main Category select -->
                         <div class="field">
@@ -65,29 +73,33 @@
             </div>
 
             
-        </div>
+            </div>
 
-        <!-- showEmoji component or no results -->
-        <div class="container">
-            <div v-if="no_results_found">
-                <div class="content has-text-centered">
-                    <h4>No results for &ldquo;{{ search }}&rdquo; in selected categories</h4>
-                    <div class="spinner ld ld-clock" style="animation-duration:2.5s">{{ emoji_no_results }}</div>
+            <!-- showEmoji component or no results -->
+            <div class="container">
+                <div v-if="no_results_found">
+                    <div class="content has-text-centered">
+                        <h4>No results for &ldquo;{{ search }}&rdquo; in selected categories</h4>
+                        <div class="spinner ld ld-clock" style="animation-duration:2.5s">{{ emoji_no_results }}</div>
+                    </div>
+                </div>
+                <div v-else>
+                    <show-emoji v-bind:emojis="emojis" v-bind:homepage="showSelectEmoji"></show-emoji>
                 </div>
             </div>
-            <div v-else>
-                <show-emoji v-bind:emojis="emojis" v-bind:homepage="showSelectEmoji"></show-emoji>
-            </div>
-        </div>
-        <!-- end showEmoji component or no results -->
+            <!-- end showEmoji component or no results -->
 
-        <!-- Loader -->
-        <div class="container">
-            <div v-show="loading">
-                <div class="spinner ld ld-spin">{{ emoji_spinner }}</div>
+            <!-- Loader -->
+            <div class="container">
+                <div v-show="loading">
+                    <div class="spinner ld ld-spin">{{ emoji_spinner }}</div>
+                </div>
             </div>
+            <!-- end Loader -->
         </div>
-        <!-- end Loader -->
+        <!-- end form and emojis -->
+
+        
         
     </section>
 </template>
@@ -106,8 +118,10 @@
         data() {
             return {
                 emoji_spinner: '\ud83e\udd14',
+                hourglass: '\u23f3',
                 emoji_no_results:'\ud83e\uddd0',
                 loading: false,
+                initialLoading: true,
                 emojis: [],
                 search: '',
                 main_category_query: '',
@@ -163,13 +177,13 @@
                     })
                 }
                 else {
+                    this.no_results_found = false;
                     this.loading = false;
                 }
             },
 
             debounceSearch: _.debounce(function() {
                 /* Debounce search feature to fetch new results based on search parameters.*/
-                
                 this.loading = true;
                 let url = '';
 
@@ -230,7 +244,6 @@
         },
 
         created() {
-
             // Dispatch actions to fetch initial data
             this.$store.dispatch('fetchHomepageEmoji');
             this.$store.dispatch('fetchCategories');
@@ -238,9 +251,11 @@
             window.addEventListener('scroll', () => {
                 this.bottom = this.bottomVisible();
             })
+
+            setTimeout(() => {this.initialLoading = false;}, 500);
+
             this.loading = true;
             this.fresh_search = true;
-
             this.loadEmoji();
 
             // Watch for changes on three models.
@@ -269,5 +284,12 @@
 .spinner {
     font-size: 7em;
     text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    #category-search {
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
 }
 </style>
