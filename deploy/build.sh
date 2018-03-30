@@ -21,6 +21,6 @@ else
 fi
 
 # Push docker images to dockerhub registry.
-docker-compose push
+docker-compose -f docker-compose-staging.yml push
 
 echo -e "\n-- Application containers have been built and pushed --"
