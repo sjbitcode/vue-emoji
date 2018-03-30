@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
 		thumbsUp: '\ud83d\udc4d\ud83c\udffc',
 		thumbsDown: '\ud83d\udc4e\ud83c\udffc',
 
-		baseUrl: 'http://localhost:8080/api/v1',
+		// baseUrl: 'http://localhost:8080/api/v1',
+		baseUrl: `${process.env.API_URL}`,
 		// baseUrl: 'http://localhost:8000/api/v1',
 		emojiEndpoint: '/emoji',
 		categoriesEndpoint: '/categories',

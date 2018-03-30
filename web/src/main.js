@@ -13,7 +13,6 @@ import { store } from './store/store';
 import './assets/css/loading.css';
 import './assets/css/style.css';
 
-
 Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(Clipboard);
