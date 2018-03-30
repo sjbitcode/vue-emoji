@@ -16,7 +16,7 @@ export default [
 	},
 
 	{
-		path: '/api',
+		path: '/rest-api',
 		component: Api
 	},
 

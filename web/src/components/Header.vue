@@ -20,7 +20,7 @@
                         <ul class="buttons has-addons is-centered">
                             <router-link tag="li" class="button is-rounded" to="/" exact>home</router-link>
                             <router-link tag="li" class="button is-rounded" to="/about" exact>about</router-link>
-                            <router-link tag="li" class="button is-rounded" to="/api" exact>api</router-link>
+                            <router-link tag="li" class="button is-rounded" to="/rest-api" exact>api</router-link>
                             <router-link tag="li" class="button is-rounded" to="/contact" exact>contact</router-link>
                         </ul>
                     </nav>
