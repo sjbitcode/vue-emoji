@@ -223,12 +223,17 @@ a {
 }
 
 .notification.is-danger {
-    /*background-color: #9056bb;*/
     background-color: #272229;
 }
 
-/*.notification.is-warning {
-    background-color: #642194;
-    color: white;
-}*/
+@media only screen and (max-width: 768px) {
+    .arrow {
+        display: none;
+    }
+
+    .is-parent.is-6 {
+        width: 75%;
+        margin: 0 auto;
+    }
+}
 </style>
