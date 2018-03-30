@@ -1,0 +1,17 @@
+# Configuration file for konnect.
+
+# Define your hosts here.
+hosts:
+  app:
+    user: deploy
+    host: 207.148.30.150
+    port: 22
+    key: ./deploy/keys/prod/prod
+
+
+# Define your tasks here.
+tasks:
+  ping: echo ping
+  g-logs: tail -n 100 -f ./logs/gunicorn-access.log
+  dc-logs: docker-compose -f docker-compose-prod.yml logs -f app
+
