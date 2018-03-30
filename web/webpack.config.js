@@ -13,12 +13,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html',
       favicon: 'src/assets/img/emojifavicon.ico'
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"development"',
-        API_URL: '"http://localhost:8000/v1"',
-      }
     })
   ],
   module: {
@@ -69,6 +63,19 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
+if (process.env.NODE_ENV === 'development') {
+  module.exports.devtool = '#source-map'
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"',
+        API_URL: '"http://localhost:8000/v1"',
+      }
+    })
+  ])
+}
+
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
@@ -76,7 +83,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        API_URL: '"http://emoji.sangeeta.io/api/v1/"',
+        API_URL: '"http://emoji.sangeeta.io/api/v1"',
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
