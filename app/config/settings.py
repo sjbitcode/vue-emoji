@@ -132,6 +132,9 @@ USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST', False)
 # Default: None 
 FORCE_SCRIPT_NAME = env('FORCE_SCRIPT_NAME')
 
+if DEBUG == False:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
