@@ -89,9 +89,11 @@
 
                                     <div class="panel-block" v-show="active_tab === 'hosting'">
                                         <div class="tags">
+                                            <a href="https://www.vultr.com/" target="_blank" class="tag is-rounded">Vultr</a>
+
                                             <a href="https://aws.amazon.com/s3/" target="_blank" class="tag is-rounded">Amazon Route53</a>
 
-                                            <a href="https://www.vultr.com/" target="_blank" class="tag is-rounded">Vultr</a>
+                                            <a href="https://letsencrypt.org/" target="_blank" class="tag is-rounded">Let's Encrypt</a>
 
                                         </div>
                                     </div>
@@ -184,5 +186,10 @@
 .tag:not(body) {
     background-color: #5f43ad;
     color: white;
+}
+
+.tags {
+    display: unset !important;
+    flex-wrap: unset !important;
 }
 </style>

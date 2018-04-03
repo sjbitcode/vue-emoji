@@ -15,10 +15,23 @@
                                     </h1>
 
                                     <span class="description">
-                                        The base url is <span class="code">{{ baseUrl }}</span>.<br>
-                                        All requests are GET requests.<br>
-                                        All requests use the <span class="code">application/json</span>
-                                        content-type.<br>
+                                        <ul>
+                                            <li>
+                                                <i class="fas fa-caret-right"></i> The base url is <span class="code">{{ baseUrl }}</span>.
+                                            </li>
+
+                                            <li>
+                                                <i class="fas fa-caret-right"></i> All requests are <span class="code">GET</span> requests and all API access is over <span class="code">https</span>.
+                                            </li>
+
+                                            <li>
+                                                <i class="fas fa-caret-right"></i> All data is sent with the <span class="code">application/json</span> content-type.
+                                            </li>
+
+                                            <li>
+                                                <i class="fas fa-caret-right"></i> This API supports cross-origin HTTP requests, commonly referred to as <span class="code">CORS</span>.
+                                            </li>
+                                        </ul>
                                     </span>
 
                                     <h2 class="heading">
@@ -144,6 +157,10 @@
     margin-top: 10px;
 }
 
+.description {
+    line-height: 2;
+}
+
 .description .code {
     padding: 2px 4px;
     font-size: 90%;
@@ -151,5 +168,19 @@
     border-radius: 4px;
     color: #fff;
     font-family: monospace;
+}
+
+.fa-caret-right {
+    color: #3f1e8a;
+}
+
+@media only screen and (max-width: 768px) {
+    .level-left > .level-item h1.title,
+    .level-left > .level-item h2.heading {
+        text-align: center;
+    }
+    .description > ul li {
+        margin: 20px 0;
+    }
 }
 </style>
