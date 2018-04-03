@@ -15,12 +15,12 @@ npm --prefix $WEB_DIR run build
 echo -e "-- Building application containers --\n"
 
 if [[ $1 = "full" ]] ; then
-    docker-compose -f docker-compose-staging.yml build --no-cache
+    docker-compose -f docker-compose-ssl.yml build --no-cache
 else
-    docker-compose -f docker-compose-staging.yml build
+    docker-compose -f docker-compose-ssl.yml build
 fi
 
 # Push docker images to dockerhub registry.
-docker-compose -f docker-compose-staging.yml push
+docker-compose -f docker-compose-ssl.yml push
 
 echo -e "\n-- Application containers have been built and pushed --"
