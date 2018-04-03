@@ -83,7 +83,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        API_URL: '"http://emoji.sangeeta.io/api/v1"',
+        API_URL: '"https://emoji.sangeeta.io/api/v1"',
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
