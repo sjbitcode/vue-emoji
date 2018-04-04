@@ -10,9 +10,24 @@ module.exports = {
     filename: 'build-[hash].js'
   },
   plugins: [
+    // new HtmlWebpackPlugin({
+    //   template: 'index.html',
+    //   favicon: 'src/assets/img/emojifavicon.ico'
+    // })
     new HtmlWebpackPlugin({
-      template: 'index.html',
-      favicon: 'src/assets/img/emojifavicon.ico'
+      // Required
+      inject: false,
+      template: require('html-webpack-template'),
+      favicon: 'src/assets/img/emojifavicon.ico',
+
+      // Optional
+      title: 'Emoji Index',
+      appMountId: 'app',
+      headHtmlSnippet: '<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>',
+      googleAnalytics: {
+        trackingId: 'UA-116928419-2',
+        pageViewOnLoad: true
+      }
     })
   ],
   module: {
