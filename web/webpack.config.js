@@ -10,10 +10,6 @@ module.exports = {
     filename: 'build-[hash].js'
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: 'index.html',
-    //   favicon: 'src/assets/img/emojifavicon.ico'
-    // })
     new HtmlWebpackPlugin({
       // Required
       inject: false,
